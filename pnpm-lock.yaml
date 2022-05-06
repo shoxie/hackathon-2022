@@ -9,6 +9,7 @@ specifiers:
   '@types/node': 17.0.31
   '@types/react': 17.0.2
   '@types/react-dom': 17.0.2
+  '@types/react-stars': ^2.2.1
   autoprefixer: ^10.4.7
   classnames: ^2.3.1
   eslint: 8.14.0
@@ -48,6 +49,7 @@ devDependencies:
   '@types/node': 17.0.31
   '@types/react': 17.0.2
   '@types/react-dom': 17.0.2
+  '@types/react-stars': 2.2.1
   autoprefixer: 10.4.7_postcss@8.4.13
   eslint: 8.14.0
   eslint-config-next: 12.1.6_13cd6b15e8a5621ea1a3200f96e4f622
@@ -737,6 +739,12 @@ packages:
 
   /@types/react-dom/17.0.2:
     resolution: {integrity: sha512-Icd9KEgdnFfJs39KyRyr0jQ7EKhq8U6CcHRMGAS45fp5qgUvxL3ujUCfWFttUK2UErqZNj97t9gsVPNAqcwoCg==}
+    dependencies:
+      '@types/react': 17.0.2
+    dev: true
+
+  /@types/react-stars/2.2.1:
+    resolution: {integrity: sha512-x0Z7+OsImFfBbHpLm/o3Z/q9qbapQbaSbKkozSIJXs6OAkFW5keA4Qw4MOjocdmhPPUYI6DDVSB0NOm0QmY+Xg==}
     dependencies:
       '@types/react': 17.0.2
     dev: true
