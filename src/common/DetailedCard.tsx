@@ -58,11 +58,17 @@ const DetailedCard = (props: Props) => {
           </div>
           <div>
             {props.isCame ? (
-              <button type="button" className="p-2 border rounded-lg bg-tertiary group hover:bg-white hover:border-tertiary">
+              <button
+                type="button"
+                className="p-2 border rounded-lg bg-tertiary group hover:bg-white hover:border-tertiary"
+              >
                 <AiOutlineComment className="text-2xl text-white group-hover:text-tertiary" />
               </button>
             ) : (
-              <button type="button" className="p-2 border rounded-lg bg-primary hover:bg-white hover:border-primary group">
+              <button
+                type="button"
+                className="p-2 border rounded-lg bg-primary hover:bg-white hover:border-primary group"
+              >
                 <AiOutlinePlus className="text-2xl text-white group-hover:text-primary" />
               </button>
             )}

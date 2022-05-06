@@ -44,5 +44,5 @@ a {
 }
 
 .general-button {
-  @apply bg-primary text-white hover:text-white border border-primary transition-all duration-300 font-semibold text-lg px-5 py-2 rounded-xl
+  @apply bg-primary text-white hover:text-white border border-primary transition-all duration-300 font-semibold text-lg px-5 py-2 rounded-xl;
 }

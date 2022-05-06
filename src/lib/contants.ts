@@ -525,3 +525,192 @@ export const places = [
     toCome: 738,
   },
 ];
+export const images = [
+  "https://picsum.photos/1920/1080",
+  "https://picsum.photos/1920/1081",
+  "https://picsum.photos/1920/1082",
+  "https://picsum.photos/1920/1083",
+  "https://picsum.photos/1920/1084",
+  "https://picsum.photos/1920/1085",
+  "https://picsum.photos/1920/1086",
+  "https://picsum.photos/1920/1087",
+  "https://picsum.photos/1920/1088",
+  "https://picsum.photos/1920/1089",
+  "https://picsum.photos/1920/1090",
+  "https://picsum.photos/1920/1091",
+  "https://picsum.photos/1920/1092",
+];
+
+export const lineChartData = [
+  {
+    name: "0H",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "2H",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "4H",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "6H",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "8H",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "10H",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "12H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "12H",
+    uv: 2300,
+    pv: 1689,
+    amt: 2100,
+  },
+  {
+    name: "14H",
+    uv: 2134,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "16H",
+    uv: 4566,
+    pv: 2356,
+    amt: 2100,
+  },
+  {
+    name: "18H",
+    uv: 2351,
+    pv: 1235,
+    amt: 2100,
+  },
+  {
+    name: "20H",
+    uv: 1235,
+    pv: 6777,
+    amt: 2100,
+  },
+  {
+    name: "24H",
+    uv: 5578,
+    pv: 1235,
+    amt: 2100,
+  },
+  {
+    name: "26H",
+    uv: 1245,
+    pv: 5123,
+    amt: 2100,
+  },
+  {
+    name: "28H",
+    uv: 1246,
+    pv: 7999,
+    amt: 2100,
+  },
+  {
+    name: "30H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "32H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "34H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "36H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "38H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "40H",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+];
+
+export const lineChartData1Week = [
+  {
+    name: "Ngày 1",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+  {
+    name: "Ngày 2",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+  {
+    name: "Ngày 3",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+  {
+    name: "Ngày 4",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+  {
+    name: "Ngày 5",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+  {
+    name: "Ngày 6",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+  {
+    name: "Ngày hôm nay",
+    uv: Math.random() * (10000 - 1000) + 1000,
+    pv: Math.random() * (10000 - 1000) + 1000,
+    amt: 2400,
+  },
+];

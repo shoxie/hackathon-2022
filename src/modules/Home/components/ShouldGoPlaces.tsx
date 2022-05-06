@@ -97,7 +97,7 @@ const ShouldGoPlaces = () => {
       >
         {places.map((item, index) => (
           <SwiperSlide key={index}>
-            <DetailedCard {...item} />
+            <DetailedCard {...item} isCame={false} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import "react-calendar/dist/Calendar.css";
 import { AnimatePresence } from "framer-motion";
+import "react-image-lightbox/style.css";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (

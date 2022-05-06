@@ -44,7 +44,7 @@ const tabs = [
   },
 ];
 
-const SwitchTab = ({ index }: {index:number}) => {
+const SwitchTab = ({ index }: { index: number }) => {
   switch (index) {
     case 0:
       return <HistoryView />;
@@ -55,9 +55,9 @@ const SwitchTab = ({ index }: {index:number}) => {
     case 3:
       return <TrustView />;
     default:
-      return <></>
+      return <></>;
   }
-}
+};
 
 const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -77,29 +77,29 @@ const UserProfile = () => {
             </div>
           </div>
           <div className="flex flex-col">
-              {tabs.map((item) => (
-                <button
-                  type="button"
-                  onClick={() => setCurrentTab(item.id)}
-                  key={item.id}
+            {tabs.map((item) => (
+              <button
+                type="button"
+                onClick={() => setCurrentTab(item.id)}
+                key={item.id}
+                className={classNames(
+                  "flex flex-row items-center justify-start py-2 pl-10 w-full",
+                  item.id === currentTab
+                    ? "text-white bg-secondary"
+                    : "text-black"
+                )}
+              >
+                <div
                   className={classNames(
-                    "flex flex-row items-center justify-start py-2 pl-10 w-full",
-                    item.id === currentTab
-                      ? "text-white bg-secondary"
-                      : "text-black"
+                    "flex flex-row items-center justify-center space-x-3 text-lg",
+                    item.id === currentTab ? "font-semibold" : "font-normal"
                   )}
                 >
-                  <div
-                    className={classNames(
-                      "flex flex-row items-center justify-center space-x-3 text-lg",
-                      item.id === currentTab ? "font-semibold" : "font-normal"
-                    )}
-                  >
-                    <div>{item.icon}</div>
-                    <div>{item.name}</div>
-                  </div>
-                </button>
-              ))}
+                  <div>{item.icon}</div>
+                  <div>{item.name}</div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </div>

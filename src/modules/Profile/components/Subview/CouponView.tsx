@@ -32,7 +32,9 @@ const CouponView = () => {
           />
         </div>
         <div>
-          <button type="button" className="general-button">Sử dụng</button>
+          <button type="button" className="general-button">
+            Sử dụng
+          </button>
         </div>
       </div>
       {data.length > 0 ? (

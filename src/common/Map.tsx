@@ -15,7 +15,7 @@ const Marker = ({ text }: { text: string; lat: number; lng: number }) => {
       </div>
       {isOpen && (
         <div className="absolute w-80 p-2 text-white -translate-x-1/2 bg-white max-h-max bottom-[400%] -left-1/2 rounded-xl">
-          <DetailedCard {...places[0]} />
+          <DetailedCard {...places[0]} isCame={false} />
         </div>
       )}
       <div className="w-4 h-4 rounded-full bg-primary" />

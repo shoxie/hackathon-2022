@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import CouponCard from "@/common/CouponCard";
-import { discounts } from '@/lib/contants';
+import { discounts } from "@/lib/contants";
 
 SwiperCore.use([Navigation]);
 
