@@ -80,6 +80,7 @@ const UndelinedLinks = () => {
 
 function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleModalOpen = (state: boolean) => {
     setIsOpen(state);
@@ -92,10 +93,10 @@ function Header() {
   return (
     <div className="max-w-screen-xl py-10 mx-auto">
       <div className="flex flex-row items-center justify-between w-full">
-        <div className="text-4xl font-bold font-Montserrat">
+        <button type="button" className="text-4xl font-bold font-Montserrat" onClick={() => router.push("/")}>
           <span className="text-primary">Travel</span>
           <span className="text-secondary">Flow.</span>
-        </div>
+        </button>
         <UndelinedLinks />
         <PopoverPrimitive.Root onOpenChange={handleModalOpen}>
           <PopoverPrimitive.Trigger>

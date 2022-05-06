@@ -67,9 +67,9 @@ const Filter = () => {
 
                 {item.children && (
                   <div className="flex flex-col items-start pl-5 space-y-2">
-                    {item.children.map((child, index) => (
+                    {item.children.map((child, idx) => (
                       <div
-                        key={index}
+                        key={idx}
                         className="flex flex-row items-center space-x-5"
                       >
                         <input type="checkbox" className="w-4 h-4" />

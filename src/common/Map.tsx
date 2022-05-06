@@ -51,7 +51,7 @@ type MapProps = {
 const Map = ({ center, markers }: MapProps) => {
   return (
     <GoogleMapReact
-      bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY as string }}
+      bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY as string }}
       defaultCenter={center ?? config.center}
       defaultZoom={config.zoom}
     >

@@ -81,12 +81,12 @@ const DiscountPlaces = () => {
         onSwiper={(swiper) => setSwiper(swiper)}
       >
         {discounts.map((item, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} className="relative z-[1]">
             <div
               style={{
                 backgroundImage: `url(${item.background})`,
               }}
-              className="flex flex-col items-start justify-between w-full h-40 p-5 bg-center bg-no-repeat bg-cover cursor-pointer rounded-xl"
+              className="flex flex-col items-start justify-between w-full h-40 p-5 bg-center bg-no-repeat bg-cover cursor-pointer rounded-xl relative z-[1]"
             >
               <div>
                 <span className="text-xl font-semibold text-white">

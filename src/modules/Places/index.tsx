@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Container from "./components/Container";
 import Filter from "./components/Filter";
 import Map from "@/common/Map";
+import withTransition from "@/common/PageTransition";
 
 const Places = () => {
   const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
@@ -81,4 +82,4 @@ const Places = () => {
   );
 };
 
-export default Places;
+export default withTransition(Places);
