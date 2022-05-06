@@ -5,15 +5,7 @@ import { useEffect, useState } from "react";
 import { places } from "@/lib/contants";
 import classNames from "classnames";
 
-type PlaceProps = {
-  code: string;
-  content: string;
-  background: string;
-  rating: number;
-  ratingCount: number;
-  toCome: number;
-  destinationType?: string;
-};
+import { PlaceProps } from "@/store/type";
 
 const Container = () => {
   const [page, onChange] = useState<number>(1);
@@ -32,7 +24,7 @@ const Container = () => {
     <>
       <div className="grid grid-cols-3 gap-5">
         {data.map((place, index) => (
-          <DetailedCard key={index} {...place} />
+          <DetailedCard key={index} {...place} isCame={false} />
         ))}
       </div>
       <div className="flex justify-end w-full pt-5">

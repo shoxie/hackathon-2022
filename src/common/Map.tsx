@@ -13,15 +13,11 @@ const Marker = ({ text }: { text: string; lat: number; lng: number }) => {
       >
         <span className="text-xl font-bold">{text}</span>
       </div>
-      {
-        isOpen && (
-          <div
-            className="absolute w-80 p-2 text-white -translate-x-1/2 bg-white max-h-max bottom-[400%] -left-1/2 rounded-xl"
-          >
-            <DetailedCard {...places[0]} />
-          </div>
-        )
-      }
+      {isOpen && (
+        <div className="absolute w-80 p-2 text-white -translate-x-1/2 bg-white max-h-max bottom-[400%] -left-1/2 rounded-xl">
+          <DetailedCard {...places[0]} />
+        </div>
+      )}
       <div className="w-4 h-4 rounded-full bg-primary" />
     </div>
   );
@@ -51,7 +47,9 @@ type MapProps = {
 const Map = ({ center, markers }: MapProps) => {
   return (
     <GoogleMapReact
-      bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY as string }}
+      bootstrapURLKeys={{
+        key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY as string,
+      }}
       defaultCenter={center ?? config.center}
       defaultZoom={config.zoom}
     >

@@ -1,6 +1,32 @@
 import ShouldGo1 from "public/assets/shouldgo-1.png";
 import ShouldGo2 from "public/assets/shouldgo-2.png";
 import ShouldGo3 from "public/assets/shouldgo-3.png";
+import Discount1 from "public/assets/discount-1.png";
+import Discount2 from "public/assets/discount-2.png";
+import Discount3 from "public/assets/discount-3.png";
+
+export const discounts = [
+  {
+    code: "F2469WER",
+    content: "Hội An - Giảm 30% khi đi trong tuần",
+    background: Discount1.src,
+  },
+  {
+    code: "F2469WER",
+    content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
+    background: Discount2.src,
+  },
+  {
+    code: "F2469WER",
+    content: "Thám hiểm rừng sâu - Hỗ trợ cắm trại miễn phí",
+    background: Discount3.src,
+  },
+  {
+    code: "F2469WER",
+    content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
+    background: Discount2.src,
+  },
+];
 
 export const places = [
   {
