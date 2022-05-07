@@ -1,4 +1,5 @@
 import { AiTwotoneStar, AiOutlinePlus, AiOutlineComment } from "react-icons/ai";
+import Link from "next/link";
 
 type Props = {
   background: string;
@@ -9,6 +10,7 @@ type Props = {
   destinationType?: string;
   isCame: boolean;
 };
+
 const DetailedCard = (props: Props) => {
   const getCountText = (count: number) => {
     if (count > 100) {
@@ -32,9 +34,11 @@ const DetailedCard = (props: Props) => {
       />
       <div className="flex flex-col pt-2 space-y-2">
         <div>
-          <span className="text-lg font-medium text-black cursor-pointer hover:underline">
-            {props.content}
-          </span>
+          <Link href="/places/detail" passHref>
+            <a className="text-lg font-medium text-black cursor-pointer hover:underline">
+              {props.content}
+            </a>
+          </Link>
         </div>
         <div className="flex flex-row items-center space-x-1">
           <div className="flex flex-row items-center text-yellow-400">

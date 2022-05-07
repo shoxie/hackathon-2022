@@ -4,6 +4,10 @@ import ShouldGo3 from "public/assets/shouldgo-3.png";
 import Discount1 from "public/assets/discount-1.png";
 import Discount2 from "public/assets/discount-2.png";
 import Discount3 from "public/assets/discount-3.png";
+import Famous1 from "public/assets/famous-1.png";
+import Famous2 from "public/assets/famous-2.png";
+import Famous3 from "public/assets/famous-3.png";
+import Famous4 from "public/assets/famous-4.png";
 
 export const discounts = [
   {
@@ -25,6 +29,41 @@ export const discounts = [
     code: "F2469WER",
     content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
     background: Discount2.src,
+  },
+];
+
+export const famousPlaces = [
+  {
+    name: "Hồ Chí Minh",
+    background: Famous1.src,
+  },
+  {
+    name: "Hà Nội",
+    background: Famous2.src,
+  },
+  {
+    name: "Đà Nẵng",
+    background: Famous3.src,
+  },
+  {
+    name: "Hội An",
+    background: Famous4.src,
+  },
+  {
+    name: "Hồ Chí Minh",
+    background: Famous1.src,
+  },
+  {
+    name: "Hà Nội",
+    background: Famous2.src,
+  },
+  {
+    name: "Đà Nẵng",
+    background: Famous3.src,
+  },
+  {
+    name: "Hội An",
+    background: Famous4.src,
   },
 ];
 

@@ -1,15 +1,18 @@
+import { AiTwotoneStar, AiOutlineHeart, AiOutlinePlus } from "react-icons/ai";
 import {
-  AiTwotoneStar,
-  AiOutlineHeart,
-  AiOutlineComment,
-} from "react-icons/ai";
+  IoSearchSharp,
+  IoCalendarNumberOutline,
+  IoPeopleOutline,
+} from "react-icons/io5";
 
 import ImageCarouselLightBox from "./components/ImageCarouselLightBox";
 import LineGraph from "./components/LineGraph";
+import CommentSection from "@/common/CommentSection";
 
 import classNames from "classnames";
 import { useState } from "react";
 import { lineChartData, lineChartData1Week } from "@/lib/contants";
+import Calendar from "react-calendar";
 
 const data = {
   name: "Vườn bách thú Đà Lạt",
@@ -41,6 +44,9 @@ const graphFilterOptions = [
 
 const PlaceDetail = () => {
   const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(0);
+  const [searchText, setSearchText] = useState<string>("");
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<Date>();
 
   const getChartData = () => {
     switch (currentFilterIndex) {
@@ -67,10 +73,19 @@ const PlaceDetail = () => {
         return "48h";
     }
   };
+
+  const onSearchTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  const handleCalendarOpen = () => {
+    setIsCalendarOpen(!isCalendarOpen);
+  };
+
   return (
-    <>
+    <div className="mx-auto max-w-screen-2xl">
       <ImageCarouselLightBox />
-      <div className="flex flex-col space-y-5">
+      <div className="flex flex-col space-y-10">
         <div>
           <h1 className="text-3xl font-semibold">{data.name}</h1>
         </div>
@@ -98,7 +113,7 @@ const PlaceDetail = () => {
           </div>
         </div>
         <div>
-          <p>
+          <p className="text-lg">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more-or-less normal
@@ -153,7 +168,69 @@ const PlaceDetail = () => {
           </span>
         </div>
       </div>
-    </>
+      <div className="flex items-center justify-center">
+        <div className="flex flex-row items-center justify-center p-6 space-x-10 bg-white shadow-lg max-w-max bg-opacity-80 rounded-2xl">
+          <div className="flex flex-row w-full space-x-3">
+            <div className="mt-1">
+              <IoCalendarNumberOutline className="text-2xl" />
+            </div>
+            <div className="flex flex-col items-start">
+              <div>
+                <span className="text-xl font-medium">Ngày khởi hành</span>
+              </div>
+              <div className="relative z-[2]">
+                <button
+                  className="text-sm font-medium text-gray-500"
+                  onClick={handleCalendarOpen}
+                >
+                  {selectedDate
+                    ? selectedDate.toLocaleDateString()
+                    : "Chọn ngày đi nào"}
+                </button>
+                {isCalendarOpen && (
+                  <div className="absolute top-full">
+                    <Calendar
+                      onChange={(date: Date) => {
+                        setIsCalendarOpen(false);
+                        setSelectedDate(date);
+                      }}
+                      value={selectedDate}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row w-full space-x-3">
+            <div className="mt-1">
+              <IoPeopleOutline className="text-2xl" />
+            </div>
+            <div className="flex flex-col items-start">
+              <div>
+                <span className="text-xl font-medium">Số lượng</span>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  className="w-full text-sm font-medium text-gray-500 bg-transparent focus:outline-none"
+                  placeholder="Bạn đồng hành cùng"
+                  onChange={onSearchTextChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-center pt-10">
+        <button className="flex items-center space-x-3 general-button">
+          <AiOutlinePlus className="text-2xl" />
+          <span className="text-2xl">Thêm vào kế hoạch</span>
+        </button>
+      </div>
+      <div>
+        <CommentSection />
+      </div>
+    </div>
   );
 };
 

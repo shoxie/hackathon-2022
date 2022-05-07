@@ -1,7 +1,11 @@
 import HeroBanner from "./components/HeroBanner";
 import DiscountPlaces from "./components/DiscountPlaces";
 import ShouldGoPlaces from "./components/ShouldGoPlaces";
+import HotPlaces from "./components/HotPlaces";
+import FamousPlaces from "./components/FamousPlaces";
+
 import withTransition from "@/common/PageTransition";
+
 const Home = () => {
   return (
     <>
@@ -11,7 +15,15 @@ const Home = () => {
       <div className="mb-20">
         <DiscountPlaces />
       </div>
-      <ShouldGoPlaces />
+      <div className="mb-20">
+        <ShouldGoPlaces />
+      </div>
+      <div className="mb-20">
+        <HotPlaces />
+      </div>
+      <div className="mb-20">
+        <FamousPlaces />
+      </div>
     </>
   );
 };

@@ -37,7 +37,7 @@ const Places = () => {
   }, [search]);
 
   return (
-    <>
+    <div className="mx-auto max-w-screen-2xl">
       <div className="flex justify-center">
         <div className="relative w-3/4">
           <div className="absolute top-2.5 left-5">
@@ -75,7 +75,7 @@ const Places = () => {
           <Container />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

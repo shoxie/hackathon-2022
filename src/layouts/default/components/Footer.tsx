@@ -1,6 +1,6 @@
 const Footer = () => (
-  <div className="py-5 pb-10 text-center">
-    <span className="text-xl font-medium">© Gallifrey Stands 2022</span>
+  <div className="py-16 text-center bg-quaternary">
+    <span className="text-2xl font-semibold">© Gallifrey Stands 2022</span>
   </div>
 );
 

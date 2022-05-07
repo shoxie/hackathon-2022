@@ -5,50 +5,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import ShouldGo1 from "public/assets/shouldgo-1.png";
-import ShouldGo2 from "public/assets/shouldgo-2.png";
-import ShouldGo3 from "public/assets/shouldgo-3.png";
-import DetailedCard from "@/common/DetailedCard";
-
-const places = [
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo1.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-    destinationType: "Vườn bách thảo",
-  },
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo2.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-  },
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo3.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-  },
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo2.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-  },
-];
+import { famousPlaces } from "@/lib/contants";
 
 SwiperCore.use([Navigation]);
 
-const ShouldGoPlaces = () => {
+const FamousPlaces = () => {
   const [swiper, setSwiper] = useState<SwiperCore>();
 
   const handleClick = (e: React.MouseEvent, direction: string) => {
@@ -70,7 +31,7 @@ const ShouldGoPlaces = () => {
     <div className="mx-auto max-w-screen-2xl">
       <div className="flex flex-row items-center justify-between mb-10">
         <div>
-          <span className="text-3xl font-semibold">Những nơi nên đến</span>
+          <span className="text-3xl font-semibold">Địa danh nổi tiếng</span>
         </div>
         <div className="flex flex-row items-center space-x-3">
           <button
@@ -91,13 +52,22 @@ const ShouldGoPlaces = () => {
       </div>
       <Swiper
         spaceBetween={50}
-        slidesPerView={3}
+        slidesPerView={4}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
-        {places.map((item, index) => (
-          <SwiperSlide key={index}>
-            <DetailedCard {...item} isCame={false} />
+        {famousPlaces.map((item, index) => (
+          <SwiperSlide key={index} className="relative z-[1]">
+            <div
+              className="relative w-full bg-center bg-no-repeat bg-cover rounded-t-full h-96"
+              style={{ backgroundImage: `url(${item.background})` }}
+            >
+              <div className="absolute w-full text-center bottom-5">
+                <span className="text-3xl font-semibold text-white">
+                  {item.name}
+                </span>
+              </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -105,4 +75,4 @@ const ShouldGoPlaces = () => {
   );
 };
 
-export default ShouldGoPlaces;
+export default FamousPlaces;

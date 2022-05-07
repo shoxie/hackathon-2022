@@ -41,7 +41,7 @@ const HeroBanner = () => {
   };
 
   return (
-    <div className="relative z-10">
+    <div className="relative z-10 mx-auto max-w-screen-2xl">
       <div
         className="bg-cover bg-no-repeat bg-center lg:h-[50vh] lg:min-h-[50vh] rounded-xl relative"
         style={{ backgroundImage: `url(${HeroBackground.src})` }}
@@ -55,9 +55,9 @@ const HeroBanner = () => {
             </h1>
           </div>
         </div>
-        <div className="absolute -translate-x-1/2 -bottom-10 left-1/2 min-h-max min-w-max">
+        <div className="absolute -translate-x-1/2 -bottom-12 left-1/2 min-h-max min-w-max">
           <div className="flex items-center justify-center">
-            <div className="flex flex-row items-center justify-center p-6 space-x-10 bg-white shadow-2xl rounded-xl">
+            <div className="flex flex-row items-center justify-center p-6 space-x-10 bg-white shadow-2xl bg-opacity-80 rounded-2xl">
               <div className="flex flex-row w-full space-x-3">
                 <div className="mt-1">
                   <GoLocation className="text-2xl" />
@@ -69,7 +69,7 @@ const HeroBanner = () => {
                   <div>
                     <input
                       type="text"
-                      className="w-full text-sm font-medium text-gray-500 focus:outline-none"
+                      className="w-full text-sm font-medium text-gray-500 bg-transparent focus:outline-none"
                       placeholder="Nơi bạn muốn đến"
                       onChange={onSearchTextChange}
                     />
@@ -105,7 +105,7 @@ const HeroBanner = () => {
                   <div>
                     <input
                       type="text"
-                      className="w-full text-sm font-medium text-gray-500 focus:outline-none"
+                      className="w-full text-sm font-medium text-gray-500 bg-transparent focus:outline-none"
                       placeholder="Bạn đồng hành cùng"
                       onChange={onSearchTextChange}
                     />

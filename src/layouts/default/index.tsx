@@ -9,7 +9,7 @@ const Layout: FC<{ children: React.ReactNode }> = ({ children }) => (
     <header className="w-full">
       <Header />
     </header>
-    <main className="px-5 pb-10 mx-auto max-w-screen-2xl">{children}</main>
+    <main className="pb-10">{children}</main>
     <footer className="w-full">
       <Footer />
     </footer>
