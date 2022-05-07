@@ -1,1 +1,1 @@
-export { default } from '@/modules/Map'
+export { default } from "@/modules/Map";

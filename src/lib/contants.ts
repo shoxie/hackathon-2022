@@ -116,7 +116,7 @@ export const plans: PlanProps[] = [
             content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
             background: Discount2.src,
           },
-        ]
+        ],
       },
       {
         name: "Suối tiên Theme park",
@@ -141,11 +141,11 @@ export const plans: PlanProps[] = [
             content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
             background: Discount2.src,
           },
-        ]
-      }
-    ]
-  }
-]
+        ],
+      },
+    ],
+  },
+];
 
 export const places = [
   {

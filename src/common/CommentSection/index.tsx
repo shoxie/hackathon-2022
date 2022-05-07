@@ -47,7 +47,9 @@ const CommentSection = ({ isSection, isProfilePage }: Props) => {
             <span>{data.rating}</span>
           </div>
           <div>
-            <span className="font-medium text-gray-300">({data.ratingCount} đánh giá)</span>
+            <span className="font-medium text-gray-300">
+              ({data.ratingCount} đánh giá)
+            </span>
           </div>
         </div>
       </div>
@@ -60,18 +62,24 @@ const CommentSection = ({ isSection, isProfilePage }: Props) => {
                 style={{ backgroundImage: `url(${comment.avatar})` }}
               />
               <div>
-                <span className="text-xl font-semibold">{comment.username}</span>
+                <span className="text-xl font-semibold">
+                  {comment.username}
+                </span>
               </div>
             </div>
             <div className="col-span-11 p-3 border border-black rounded-xl">
               <div className="flex flex-row items-center justify-between">
                 <StarRating rating={comment.rating} />
                 <div>
-                  <span className="text-lg font-medium text-gray-400">{comment.timestamp}</span>
+                  <span className="text-lg font-medium text-gray-400">
+                    {comment.timestamp}
+                  </span>
                 </div>
               </div>
               <div>
-                <span className="text-sm font-medium text-gray-400">Đánh giá cho: {comment.place}</span>
+                <span className="text-sm font-medium text-gray-400">
+                  Đánh giá cho: {comment.place}
+                </span>
               </div>
               <div className="py-5">
                 <p>{comment.content}</p>

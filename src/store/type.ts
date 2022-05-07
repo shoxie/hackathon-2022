@@ -30,8 +30,8 @@ export type PlanProps = {
     ratingCount: number;
     toCome: number;
     willCome: number;
-    lat: number
-    lng: number
+    lat: number;
+    lng: number;
     appliedCoupons: CouponProps[];
   }[];
 };
@@ -40,11 +40,11 @@ export type MarkerType = {
   lat: number;
   lng: number;
   text: string;
-}
+};
 export type MapProps = {
-center?: {
-  lat: number;
-  lng: number;
-} | null;
-markers?: MarkerType[]
+  center?: {
+    lat: number;
+    lng: number;
+  } | null;
+  markers?: MarkerType[];
 };

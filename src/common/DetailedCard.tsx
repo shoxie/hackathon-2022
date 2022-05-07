@@ -1,7 +1,7 @@
 import { AiTwotoneStar, AiOutlinePlus, AiOutlineComment } from "react-icons/ai";
 import Link from "next/link";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { fadeInUp } from '@/lib/contants';
+import { fadeInUp } from "@/lib/contants";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -17,7 +17,7 @@ type Props = {
 
 const DetailedCard = (props: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  
+
   const getCountText = (count: number) => {
     if (count > 100) {
       return "Ít người";
@@ -36,63 +36,63 @@ const DetailedCard = (props: Props) => {
 
   return (
     <>
-    <div className="p-3 bg-white border border-gray-300 rounded-lg">
-      <div
-        style={{
-          backgroundImage: `url(${props.background})`,
-        }}
-        className="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg cursor-pointer"
-      />
-      <div className="flex flex-col pt-2 space-y-2">
-        <div>
-          <Link href="/places/detail" passHref>
-            <a className="text-lg font-medium text-black cursor-pointer hover:underline">
-              {props.content}
-            </a>
-          </Link>
-        </div>
-        <div className="flex flex-row items-center space-x-1">
-          <div className="flex flex-row items-center text-yellow-400">
-            <AiTwotoneStar />
-            <span>{props.rating}</span>
-          </div>
+      <div className="p-3 bg-white border border-gray-300 rounded-lg">
+        <div
+          style={{
+            backgroundImage: `url(${props.background})`,
+          }}
+          className="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg cursor-pointer"
+        />
+        <div className="flex flex-col pt-2 space-y-2">
           <div>
-            <span className="text-black">({props.ratingCount})</span>
+            <Link href="/places/detail" passHref>
+              <a className="text-lg font-medium text-black cursor-pointer hover:underline">
+                {props.content}
+              </a>
+            </Link>
           </div>
-        </div>
-        <div className="flex flex-row items-center space-x-5 text-sm text-gray-400">
-          <span>{getCountText(props.toCome)}</span>
-          <span>{props.destinationType ?? ""}</span>
-        </div>
-        <div className="flex flex-row items-end justify-between">
-          <div>
-            <span className="text-gray-400">
-              <span className="font-medium text-primary">{props.toCome}</span>{" "}
-              người sẽ đến
-            </span>
+          <div className="flex flex-row items-center space-x-1">
+            <div className="flex flex-row items-center text-yellow-400">
+              <AiTwotoneStar />
+              <span>{props.rating}</span>
+            </div>
+            <div>
+              <span className="text-black">({props.ratingCount})</span>
+            </div>
           </div>
-          <div>
-            {props.isCame ? (
-              <button
-                type="button"
-                className="p-2 border rounded-lg bg-tertiary group hover:bg-white hover:border-tertiary"
-              >
-                <AiOutlineComment className="text-2xl text-white group-hover:text-tertiary" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => handleOpenModal(true)}
-                className="p-2 border rounded-lg bg-primary hover:bg-white hover:border-primary group"
-              >
-                <AiOutlinePlus className="text-2xl text-white group-hover:text-primary" />
-              </button>
-            )}
+          <div className="flex flex-row items-center space-x-5 text-sm text-gray-400">
+            <span>{getCountText(props.toCome)}</span>
+            <span>{props.destinationType ?? ""}</span>
+          </div>
+          <div className="flex flex-row items-end justify-between">
+            <div>
+              <span className="text-gray-400">
+                <span className="font-medium text-primary">{props.toCome}</span>{" "}
+                người sẽ đến
+              </span>
+            </div>
+            <div>
+              {props.isCame ? (
+                <button
+                  type="button"
+                  className="p-2 border rounded-lg bg-tertiary group hover:bg-white hover:border-tertiary"
+                >
+                  <AiOutlineComment className="text-2xl text-white group-hover:text-tertiary" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => handleOpenModal(true)}
+                  className="p-2 border rounded-lg bg-primary hover:bg-white hover:border-primary group"
+                >
+                  <AiOutlinePlus className="text-2xl text-white group-hover:text-primary" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <DialogPrimitive.Root onOpenChange={handleOpenModal}>
+      <DialogPrimitive.Root onOpenChange={handleOpenModal}>
         <AnimatePresence exitBeforeEnter>
           {isOpen ? (
             <DialogPrimitive.Portal forceMount>
@@ -129,7 +129,11 @@ const DetailedCard = (props: Props) => {
                         </span>
                       </div>
                       <div className="text-center">
-                        <span className="text-2xl font-semibold">Thêm địa điểm <span className="text-primary">{props.content}</span> vào kế hoạch</span>
+                        <span className="text-2xl font-semibold">
+                          Thêm địa điểm{" "}
+                          <span className="text-primary">{props.content}</span>{" "}
+                          vào kế hoạch
+                        </span>
                       </div>
                       <div className="flex flex-row items-center justify-center space-x-10">
                         <button className="px-5 py-1 transition-all duration-300 border rounded-md border-secondary hover:bg-secondary hover:text-white text-secondary">
@@ -147,7 +151,6 @@ const DetailedCard = (props: Props) => {
           ) : null}
         </AnimatePresence>
       </DialogPrimitive.Root>
-    
     </>
   );
 };
