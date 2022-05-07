@@ -100,8 +100,32 @@ export const plans: PlanProps[] = [
             background: Discount2.src,
           },
         ]
+      },
+      {
+        name: "Suối tiên Theme park",
+        thumbnail: "https://picsum.photos/500/500",
+        startTime: "08:00",
+        startDate: "30/4",
+        members: 5,
+        rating: 4.8,
+        ratingCount: 1345,
+        toCome: 286,
+        willCome: 179,
+        lat: 10.8663846,
+        lng: 106.8065951,
+        appliedCoupons: [
+          {
+            code: "F2469WER",
+            content: "Hội An - Giảm 30% khi đi trong tuần",
+            background: Discount1.src,
+          },
+          {
+            code: "F2469WER",
+            content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
+            background: Discount2.src,
+          },
+        ]
       }
-
     ]
   }
 ]

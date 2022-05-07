@@ -4,17 +4,21 @@ import { plans } from "@/lib/contants";
 import { PlanProps } from "@/store/type";
 import Link from "next/link";
 import withTransition from "@/common/PageTransition";
-import { AiTwotoneStar } from "react-icons/ai";
+import { AiTwotoneStar, AiOutlineDelete } from "react-icons/ai";
 import Map from "@/common/Map";
 
 const DetailedUserPlan = () => {
   const router = useRouter();
   const [plan, setPlan] = useState<PlanProps>(plans[0]);
-  const [markers, setMarkers] = useState<{
-    lat: number;
-    lng: number;
-    text: string;
-  }[]>([]);
+  const [markers, setMarkers] = useState<
+    {
+      lat: number;
+      lng: number;
+      text: string;
+    }[]
+  >([]);
+  const [selectedPlace, setSelectedPlace] = useState<number>(0);
+
   useEffect(() => {
     const planId = parseInt(router.query.id as string);
     const planData = plans.filter((plan) => plan.id === planId);
@@ -24,8 +28,12 @@ const DetailedUserPlan = () => {
       lng: place.lng,
       text: place.name,
     }));
+    if (planData[0]?.places.length > 0) {
+      setSelectedPlace(0);
+    }
     setMarkers(markerData);
   }, [router.query.id]);
+
   return (
     <div className="mx-auto max-w-screen-2xl">
       <div className="flex flex-row items-center justify-between py-10">
@@ -42,10 +50,10 @@ const DetailedUserPlan = () => {
           </Link>
         </div>
       </div>
-      <div className="grid grid-cols-2 space-x-10">
-        <div className="w-full">
+      <div className="grid grid-cols-12 space-x-10">
+        <div className="flex flex-col w-full space-y-5 col-span-5">
           {plan?.places.map((place, idx) => (
-            <div key={idx} className="flex flex-row items-center space-x-3">
+            <div key={idx} className="flex flex-row items-center space-x-3" onClick={() => setSelectedPlace(idx)}>
               <div className="text-2xl font-semibold text-center text-secondary">
                 <span className="block">{place.startTime}</span>
                 <span className="block">{place.startDate}</span>
@@ -58,7 +66,9 @@ const DetailedUserPlan = () => {
                   />
                   <div>
                     <div>
-                      <span className="text-2xl font-semibold">{place.name}</span>
+                      <span className="text-2xl font-semibold">
+                        {place.name}
+                      </span>
                     </div>
                     <div>
                       <div className="flex flex-row items-center space-x-1">
@@ -79,22 +89,37 @@ const DetailedUserPlan = () => {
                   <div className="flex flex-row items-center space-x-3">
                     <div>
                       <span className="text-lg text-gray-400">
-                        <span className="text-2xl text-secondary">{place.toCome}</span> dự định đến
+                        <span className="text-2xl text-secondary">
+                          {place.toCome}
+                        </span>{" "}
+                        dự định đến
                       </span>
                     </div>
                     <div>
                       <span className="text-lg text-gray-400">
-                        <span className="text-2xl text-secondary">{place.willCome}</span> sẽ đến
+                        <span className="text-2xl text-secondary">
+                          {place.willCome}
+                        </span>{" "}
+                        sẽ đến
                       </span>
                     </div>
                   </div>
+                  <button type="button" className="p-2 border rounded-lg bg-primary hover:bg-white border-primary group">
+                    <AiOutlineDelete className="text-xl text-white group-hover:text-primary" />
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="w-full rounded-xl overflow-hidden min-h-[50vh]">
-            <Map markers={markers} />
+        <div className="w-full rounded-xl overflow-hidden min-h-[50vh] col-span-7">
+          <Map
+            markers={markers}
+            center={{
+              lat: plan?.places[selectedPlace].lat,
+              lng: plan?.places[selectedPlace].lng,
+            }}
+          />
         </div>
       </div>
     </div>
