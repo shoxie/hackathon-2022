@@ -57,7 +57,7 @@ const DetailedCard = (props: Props) => {
               <span>{props.rating}</span>
             </div>
             <div>
-              <span className="text-black">({props.ratingCount})</span>
+              <span className="text-gray-400">({props.ratingCount})</span>
             </div>
           </div>
           <div className="flex flex-row items-center space-x-5 text-sm text-gray-400">

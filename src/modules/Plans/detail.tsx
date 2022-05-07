@@ -7,6 +7,7 @@ import withTransition from "@/common/PageTransition";
 import { AiTwotoneStar, AiOutlineDelete } from "react-icons/ai";
 import Map from "@/common/Map";
 import classNames from "classnames";
+import EmptyPlanBanner from "public/assets/empty-plan-banner.png";
 
 const DetailedUserPlan = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const DetailedUserPlan = () => {
 
   useEffect(() => {
     const planId = parseInt(router.query.id as string);
-    const planData = plans.filter((plan) => plan.id === planId);
+    const planData = plans.filter((plan) => plan?.id === planId);
     setPlan(planData[0]);
     const markerData = planData[0]?.places.map((place) => ({
       lat: place.lat,
@@ -35,6 +36,39 @@ const DetailedUserPlan = () => {
     }
     setMarkers(markerData);
   }, [router.query.id]);
+  if (!plan || plan?.places.length === 0) {
+    return (
+      <div className="mx-auto max-w-screen-2xl">
+        <div>
+          <h1 className="inline text-2xl font-semibold">
+            Bạn có{" "}
+            <h1 className="inline text-secondary">{plan?.places.length}</h1> địa
+            điểm trong kế hoạch
+          </h1>
+          <div className="flex flex-col items-center justify-center w-full text-center">
+            <div
+              style={{ backgroundImage: `url(${EmptyPlanBanner.src})` }}
+              className="h-48 bg-center bg-no-repeat bg-cover w-96 mb-5"
+            />
+            <span className="block text-3xl font-semibold text-gray-600">
+              Bạn chưa thêm địa điểm nào vào danh sách!
+            </span>
+            <span className="block text-2xl font-medium text-gray-500">
+              Hãy cùng chúng tôi khám phá các địa điểm du lịch an toàn cùng với
+              các mã ưu đãi nào!
+            </span>
+          </div>
+          <div className="flex items-center justify-center py-5">
+            <Link href="/places" passHref>
+              <a className="px-4 py-3 text-2xl font-medium text-white border-2 rounded-lg hover:text-secondary border-secondary bg-secondary">
+                Khám phá
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -156,6 +190,101 @@ const DetailedUserPlan = () => {
             </div>
           </div>
         </div>
+        <div className="grid grid-cols-12 space-x-10">
+          <div className="col-span-5">
+            <h2 className="py-10 text-3xl font-semibold">Chi tiết địa điểm</h2>
+            <div className="flex flex-row py-5 space-x-5">
+              <div
+                style={{
+                  backgroundImage: `url(${plan?.places[selectedPlace].thumbnail})`,
+                }}
+                className="w-20 h-20 bg-center bg-no-repeat bg-cover rounded-lg"
+              />
+              <div>
+                <span className="block text-xl font-semibold">
+                  {plan?.places[selectedPlace].name}
+                </span>
+                <div className="flex flex-row items-center space-x-1">
+                  <div className="flex flex-row items-center text-yellow-400">
+                    <AiTwotoneStar />
+                    <span>{plan?.places[selectedPlace].rating}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">
+                      ({plan?.places[selectedPlace].ratingCount})
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row items-center space-x-5">
+              <div>
+                <span className="block text-xl font-medium text-gray-500">
+                  Đi ngày{" "}
+                  <span className="text-2xl font-semibold text-secondary">
+                    {plan?.places[selectedPlace].startDate}
+                  </span>
+                </span>
+                <span className="block text-xl font-medium text-gray-500">
+                  <span className="text-2xl text-secondary">
+                    {plan?.places[selectedPlace].toCome}
+                  </span>{" "}
+                  dự định đến
+                </span>
+              </div>
+              <div>
+                <span className="text-xl font-medium text-gray-500">
+                  Số lượng{" "}
+                  <span className="text-2xl font-semibold text-secondary">
+                    {plan?.places[selectedPlace].members}
+                  </span>{" "}
+                  người
+                </span>
+                <span className="block text-xl font-medium text-gray-500">
+                  <span className="text-2xl text-secondary">
+                    {plan?.places[selectedPlace].willCome}
+                  </span>{" "}
+                  sẽ đến
+                </span>
+              </div>
+            </div>
+            <div>
+              <span className="block py-5 text-2xl font-medium">
+                Các mã ưu đãi đã thêm
+              </span>
+              <div className="grid grid-cols-2 gap-5">
+                {plan?.places[selectedPlace].appliedCoupons.map((coupon) => (
+                  <div
+                    key={coupon.code}
+                    style={{
+                      backgroundImage: `url(${plan?.places[selectedPlace].thumbnail})`,
+                    }}
+                    className="flex w-full h-32 bg-center bg-no-repeat bg-cover rounded-2xl"
+                  >
+                    <div className="pb-2 pl-3 mt-auto text-white">
+                      <span className="text-xl font-medium">{coupon.code}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="col-span-7 w-full rounded-xl overflow-hidden min-h-[50vh] mt-20">
+            <Map
+              markers={[
+                {
+                  text: plan?.places[selectedPlace].name,
+                  lat: plan?.places[selectedPlace].lat,
+                  lng: plan?.places[selectedPlace].lng,
+                },
+              ]}
+              center={{
+                lat: plan?.places[selectedPlace].lat,
+                lng: plan?.places[selectedPlace].lng,
+              }}
+            />
+          </div>
+        </div>
       </div>
       <div
         className={classNames(
@@ -205,7 +334,9 @@ const DetailedUserPlan = () => {
                     </div>
                   </div>
                   <div className="text-2xl font-semibold text-center text-secondary">
-                    <span className="block">{place.startTime} {place.startDate}</span>
+                    <span className="block">
+                      {place.startTime} {place.startDate}
+                    </span>
                   </div>
                   <div className="flex flex-row items-center justify-between pt-3">
                     <div className="flex flex-row items-center space-x-3">
