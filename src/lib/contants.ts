@@ -10,6 +10,23 @@ import Famous3 from "public/assets/famous-3.png";
 import Famous4 from "public/assets/famous-4.png";
 import { PlanProps } from "@/store/type";
 
+export const fadeInUp = {
+  initial: {
+    opacity: 0,
+    translateY: 100,
+    transition: {
+      delay: 0.5,
+    },
+  },
+  animate: {
+    opacity: 1,
+    translateY: 0,
+    transition: {
+      delay: 0.5,
+    },
+  },
+};
+
 export const discounts = [
   {
     code: "F2469WER",

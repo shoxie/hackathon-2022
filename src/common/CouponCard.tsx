@@ -2,23 +2,7 @@ import { CouponProps } from "@/store/type";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const fadeInUp = {
-  initial: {
-    opacity: 0,
-    translateY: 100,
-    transition: {
-      delay: 0.5,
-    },
-  },
-  animate: {
-    opacity: 1,
-    translateY: 0,
-    transition: {
-      delay: 0.5,
-    },
-  },
-};
+import { fadeInUp } from '@/lib/contants';
 
 const CouponCard = (props: CouponProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

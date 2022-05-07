@@ -35,3 +35,16 @@ export type PlanProps = {
     appliedCoupons: CouponProps[];
   }[];
 };
+
+export type MarkerType = {
+  lat: number;
+  lng: number;
+  text: string;
+}
+export type MapProps = {
+center?: {
+  lat: number;
+  lng: number;
+} | null;
+markers?: MarkerType[]
+};

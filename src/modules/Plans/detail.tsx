@@ -51,7 +51,7 @@ const DetailedUserPlan = () => {
         </div>
       </div>
       <div className="grid grid-cols-12 space-x-10">
-        <div className="flex flex-col w-full space-y-5 col-span-5">
+        <div className="flex flex-col w-full col-span-5 space-y-5">
           {plan?.places.map((place, idx) => (
             <div key={idx} className="flex flex-row items-center space-x-3" onClick={() => setSelectedPlace(idx)}>
               <div className="text-2xl font-semibold text-center text-secondary">

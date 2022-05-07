@@ -2,7 +2,7 @@ import GoogleMapReact from "google-map-react";
 import { useState } from "react";
 import { places } from "@/lib/contants";
 import DetailedCard from "./DetailedCard";
-// import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
+import { MapProps, MarkerType } from "@/store/type";
 
 const Marker = ({ text }: { text: string; lat: number; lng: number }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,45 +34,8 @@ const config = {
   },
   zoom: 11,
 };
-type MarkerType = {
-    lat: number;
-    lng: number;
-    text: string;
-}
-type MapProps = {
-  center?: {
-    lat: number;
-    lng: number;
-  } | null;
-  markers?: MarkerType[]
-};
 
 const Map = ({ center, markers }: MapProps) => {
-  // const { isLoaded, loadError } = useLoadScript({
-  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY as string,
-  // });
-  // if (loadError) return <>Error loading maps</>;
-  // if (!isLoaded) return <>Loading maps</>;
-
-  // return (
-  //   <GoogleMap
-  //     mapContainerStyle={config.style}
-  //     zoom={config.zoom}
-  //     center={center ?? config.center}
-  //     >
-  //     {markers?.map((marker, idx) => (
-  //       <Marker
-  //         key={idx}
-  //         position={{
-  //           lat: marker.lat,
-  //           lng: marker.lng,
-  //         }}
-  //       >
-  //         <span>hello</span>
-  //       </Marker>
-  //     ))}
-  //     </GoogleMap>
-  // )
   return (
     <GoogleMapReact
       bootstrapURLKeys={{

@@ -65,7 +65,7 @@ const UndelinedLinks = () => {
   return (
     <div className="flex flex-row space-x-16">
       <AnimateSharedLayout>
-        {menuItems.map((item, idx) => (
+        {menuItems.map((item, idx: number) => (
           <Link
             text={item.name}
             key={idx}
@@ -107,6 +107,7 @@ function Header() {
             <button
               type="button"
               className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary"
+              onClick={() => router.push("/profile")}
             >
               Đăng nhập
             </button>
