@@ -29,19 +29,19 @@ const config = {
   },
   zoom: 11,
 };
+type Marker = {
 
+    lat: number;
+    lng: number;
+    text: string;
+  
+}
 type MapProps = {
-  center: {
+  center?: {
     lat: number;
     lng: number;
   } | null;
-  markers: [
-    {
-      lat: number;
-      lng: number;
-      text: string;
-    }
-  ];
+  markers?: Marker[]
 };
 
 const Map = ({ center, markers }: MapProps) => {
@@ -53,7 +53,7 @@ const Map = ({ center, markers }: MapProps) => {
       defaultCenter={center ?? config.center}
       defaultZoom={config.zoom}
     >
-      {markers.map((marker, index) => (
+      {markers?.map((marker, index) => (
         <Marker
           key={index}
           text={marker.text}

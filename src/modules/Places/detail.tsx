@@ -11,8 +11,9 @@ import CommentSection from "@/common/CommentSection";
 
 import classNames from "classnames";
 import { useState } from "react";
-import { lineChartData, lineChartData1Week } from "@/lib/contants";
+import { discounts, lineChartData, lineChartData1Week } from "@/lib/contants";
 import Calendar from "react-calendar";
+import CouponCard from "@/common/CouponCard";
 
 const data = {
   name: "Vườn bách thú Đà Lạt",
@@ -227,8 +228,18 @@ const PlaceDetail = () => {
           <span className="text-2xl">Thêm vào kế hoạch</span>
         </button>
       </div>
+      <div className="py-10">
+        <div>
+          <span className="text-3xl font-semibold">Thêm các mã giảm giá</span>
+        </div>
+        <div className="grid grid-cols-3 gap-5 py-10">
+          {discounts.slice(0, 3).map((item, index) => (
+            <CouponCard key={index} {...item} />
+          ))}
+        </div>
+      </div>
       <div>
-        <CommentSection />
+        <CommentSection isSection isProfilePage={false} />
       </div>
     </div>
   );

@@ -8,8 +8,18 @@ const data = {
     {
       id: 1,
       username: "Nguyen Van A",
-      avatar: "https://i.picsum.photos/id/10/200/200.jpg",
+      avatar: "https://picsum.photos/300/200",
       rating: 5,
+      timestamp: "2020-01-01",
+      place: "Vườn bách thú Đà Lạt",
+      content:
+        "Nhờ có TravelFlow mà mình vừa được du lịch ngắm cảnh, vừa đảm bảo an toàn cho gia đình. Bé nhà mình chưa tiêm vắc xin nên mình hơi đắn đo khi đi du lịch, nhưng may mà có TravelFlow, mình tránh được những nơi đông người mà còn thêm nhiều mã ưu đãi nữa. ",
+    },
+    {
+      id: 2,
+      username: "Nguyen Van A",
+      avatar: "https://picsum.photos/300/200",
+      rating: 2,
       timestamp: "2020-01-01",
       place: "Vườn bách thú Đà Lạt",
       content:
@@ -25,45 +35,45 @@ type Props = {
 const CommentSection = ({ isSection, isProfilePage }: Props) => {
   return (
     <div>
-      <div>
-        <span className="text-2xl font-semibold">
+      <div className="py-5">
+        <span className="text-3xl font-semibold">
           {isProfilePage ? "Đã đánh giá" : "Đánh giá"}
         </span>
       </div>
       <div>
         <div className="flex flex-row items-center space-x-1">
-          <div className="flex flex-row items-center text-yellow-400">
+          <div className="flex flex-row items-center text-2xl text-yellow-400">
             <AiTwotoneStar />
             <span>{data.rating}</span>
           </div>
           <div>
-            <span className="text-black">({data.ratingCount} đánh giá)</span>
+            <span className="font-medium text-gray-300">({data.ratingCount} đánh giá)</span>
           </div>
         </div>
       </div>
-      <div>
+      <div className="flex flex-col pt-5 space-y-5">
         {data.comments.map((comment) => (
-          <div key={comment.id} className="grid grid-cols-12">
-            <div className="flex flex-col items-center col-span-2">
+          <div key={comment.id} className="grid grid-cols-12 space-x-5">
+            <div className="flex flex-col items-center col-span-1 space-y-5">
               <div
-                className="w-10 h-10 bg-center bg-no-repeat bg-cover rounded-full"
+                className="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full"
                 style={{ backgroundImage: `url(${comment.avatar})` }}
               />
               <div>
-                <span>{comment.username}</span>
+                <span className="text-xl font-semibold">{comment.username}</span>
               </div>
             </div>
-            <div className="col-span-10">
+            <div className="col-span-11 p-3 border border-black rounded-xl">
               <div className="flex flex-row items-center justify-between">
                 <StarRating rating={comment.rating} />
                 <div>
-                  <span>{comment.timestamp}</span>
+                  <span className="text-lg font-medium text-gray-400">{comment.timestamp}</span>
                 </div>
               </div>
               <div>
-                <span>Đánh giá cho: {comment.place}</span>
+                <span className="text-sm font-medium text-gray-400">Đánh giá cho: {comment.place}</span>
               </div>
-              <div>
+              <div className="py-5">
                 <p>{comment.content}</p>
               </div>
             </div>

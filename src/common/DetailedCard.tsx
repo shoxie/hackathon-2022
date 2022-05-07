@@ -25,7 +25,7 @@ const DetailedCard = (props: Props) => {
   };
 
   return (
-    <div className="p-3 border border-gray-300 rounded-lg">
+    <div className="p-3 bg-white border border-gray-300 rounded-lg">
       <div
         style={{
           backgroundImage: `url(${props.background})`,

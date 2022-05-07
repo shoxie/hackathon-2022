@@ -22,9 +22,9 @@ export default function StarRating({ rating }: { rating: number }) {
         edit={false}
         color2={"#ffd700"}
         color1={"transparent"}
-        size={24}
+        size={30}
       />
-      <span>{getRatingText()}</span>
+      <span className="text-lg font-medium">{getRatingText()}</span>
     </div>
   );
 }

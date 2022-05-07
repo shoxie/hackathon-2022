@@ -8,6 +8,7 @@ import Famous1 from "public/assets/famous-1.png";
 import Famous2 from "public/assets/famous-2.png";
 import Famous3 from "public/assets/famous-3.png";
 import Famous4 from "public/assets/famous-4.png";
+import { PlanProps } from "@/store/type";
 
 export const discounts = [
   {
@@ -66,6 +67,44 @@ export const famousPlaces = [
     background: Famous4.src,
   },
 ];
+
+export const plans: PlanProps[] = [
+  {
+    id: 1,
+    thumbnail: Famous1.src,
+    name: "Hồ Chí Minh",
+    from: "30/4",
+    to: "4/5",
+    places: [
+      {
+        name: "Coffee House An Dương view hướng đồi",
+        thumbnail: "https://picsum.photos/500/500",
+        startTime: "08:00",
+        startDate: "30/4",
+        members: 5,
+        rating: 4.8,
+        ratingCount: 1345,
+        toCome: 286,
+        willCome: 179,
+        lat: 10.8567268,
+        lng: 106.7557407,
+        appliedCoupons: [
+          {
+            code: "F2469WER",
+            content: "Hội An - Giảm 30% khi đi trong tuần",
+            background: Discount1.src,
+          },
+          {
+            code: "F2469WER",
+            content: "Tặng 2 bữa tối miễn phí khi du lịch dưới 3 người",
+            background: Discount2.src,
+          },
+        ]
+      }
+
+    ]
+  }
+]
 
 export const places = [
   {

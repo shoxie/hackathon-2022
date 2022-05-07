@@ -18,7 +18,7 @@ const menuItems = [
   },
   {
     name: "Kế hoạch",
-    path: "/plan",
+    path: "/plans",
   },
 ];
 
