@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { plans } from "@/lib/contants";
-import { PlanLocation, PlanProps, Location } from "@/store/type";
+import { PlanLocation, PlanProps, Location, MarkerType } from "@/store/type";
 import Link from "next/link";
 import withTransition from "@/common/PageTransition";
 import { AiTwotoneStar, AiOutlineDelete } from "react-icons/ai";
@@ -14,13 +14,7 @@ const DetailedUserPlan = () => {
   const router = useRouter();
   const [plan, setPlan] = useState<PlanProps>(plans[0]);
   const [planLocations, setPlanLocations] = useState<Location[] | []>([]);
-  const [markers, setMarkers] = useState<
-    {
-      lat: number;
-      lng: number;
-      text: string;
-    }[]
-  >([]);
+  const [markers, setMarkers] = useState<MarkerType[]>([]);
   const [selectedPlace, setSelectedPlace] = useState<number>(0);
   const [isMapView, setIsMapView] = useState<boolean>(false);
 
@@ -28,7 +22,7 @@ const DetailedUserPlan = () => {
     const planId = parseInt(router.query.id as string);
     if (!planId) return;
     getPlanById(planId).then(async (res) => {
-      const temp = [];
+      let temp: Location[] = [];
       for (let i = 0; i < res.data.PlanLocation.length; i++) {
         await getLocationById(res.data.PlanLocation[i].id).then((result) => {
           temp = [...temp, result.data];
@@ -39,12 +33,12 @@ const DetailedUserPlan = () => {
   }, [router.query.id]);
 
   useEffect(() => {
-    console.log("test", planLocations); // 1
     if (planLocations.length > 0) {
       const markerData = planLocations.map((place) => ({
         lat: place.latitude,
         lng: place.longitude,
         text: place.name,
+        locationId: place.id,
       }));
       setSelectedPlace(0);
       setMarkers(markerData);
@@ -127,8 +121,8 @@ const DetailedUserPlan = () => {
                 onClick={() => setSelectedPlace(idx)}
               >
                 <div className="text-2xl font-semibold text-center text-secondary">
-                  <span className="block">{place.startTime}</span>
-                  <span className="block">{place.startDate}</span>
+                  <span className="block">{""}</span>
+                  <span className="block">{""}</span>
                 </div>
                 <div className="w-full p-3 border border-gray-600 rounded-xl">
                   <div className="flex flex-row space-x-2">

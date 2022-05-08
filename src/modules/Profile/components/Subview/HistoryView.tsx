@@ -4,6 +4,8 @@ import NoHistoryBanner from "public/assets/no-history-banner.png";
 import DetailedCard from "@/common/DetailedCard";
 import { places } from "@/lib/contants";
 import { usePagination } from "@mantine/hooks";
+import { getLocations } from "@/services/api";
+import { Location } from "@/store/type";
 
 const HistoryView = () => {
   const [page, onChange] = useState<number>(1);
@@ -13,6 +15,17 @@ const HistoryView = () => {
     page,
     onChange,
   });
+  const [locations, setLocations] = useState<Location[] | null>(null);
+
+  useEffect(() => {
+    getLocations()
+      .then((res) => {
+        setLocations(res.data.locations);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
     setData(places.slice((page - 1) * 6, page * 6));
@@ -28,7 +41,7 @@ const HistoryView = () => {
         {data.length > 0 ? (
           <>
             <div className="grid grid-cols-3 gap-5">
-              {data.map((place, index) => (
+              {locations?.map((place, index) => (
                 <DetailedCard key={index} {...place} isCame />
               ))}
             </div>
@@ -64,7 +77,7 @@ const HistoryView = () => {
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-5 pt-5">
-                {places.slice(0, 3).map((place, index) => (
+                {locations?.slice(0, 3).map((place, index) => (
                   <DetailedCard key={index} {...place} isCame={false} />
                 ))}
               </div>

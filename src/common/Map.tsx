@@ -1,22 +1,30 @@
 import GoogleMapReact from "google-map-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { places } from "@/lib/contants";
 import DetailedCard from "./DetailedCard";
-import { MapProps, MarkerType } from "@/store/type";
+import { MapProps, MarkerType, Location } from "@/store/type";
+import { getLocationById } from "@/services/api";
 
-const Marker = ({ text }: { text: string; lat: number; lng: number }) => {
+const Marker = ({ text, locationId }: MarkerType) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [location, setLocation] = useState<Location | null>(null);
+
+  useEffect(() => {
+    if (!locationId) return;
+    getLocationById(locationId).then((res) => setLocation(res.data));
+  }, [locationId]);
+
   return (
     <div className="relative">
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="absolute w-full p-2 text-white -translate-x-1/2 -top-14 -left-1/2 bg-secondary rounded-xl min-w-max"
       >
-        <span className="text-xl font-bold">{text}</span>
+        <span className="font-bold text-md">{text}</span>
       </div>
-      {isOpen && (
+      {isOpen && location && (
         <div className="absolute w-80 p-2 text-white -translate-x-1/2 bg-white max-h-max bottom-[400%] -left-1/2 rounded-xl">
-          <DetailedCard {...places[0]} isCame={false} />
+          <DetailedCard {...location} isCame={false} />
         </div>
       )}
       <div className="w-4 h-4 rounded-full bg-primary" />
@@ -51,6 +59,7 @@ const Map = ({ center, markers }: MapProps) => {
           text={marker.text}
           lat={marker.lat}
           lng={marker.lng}
+          locationId={marker.locationId}
         />
       ))}
     </GoogleMapReact>

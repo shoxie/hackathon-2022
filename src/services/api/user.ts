@@ -11,3 +11,7 @@ export const register = (user: User) => {
 export const login = (user: User) => {
   return axiosClient.post(LOGIN_ENDPOINT, user);
 };
+
+export const getUserInfo = () => {
+  return axiosClient.get("/user/me");
+};

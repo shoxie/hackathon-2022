@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import DetailedCard from "@/common/DetailedCard";
+import { Location } from "@/store/type";
 
 SwiperCore.use([Navigation]);
 
@@ -33,7 +34,7 @@ const HotPlaces = ({ places }: Props) => {
 
   return (
     <div className="py-10 bg-quaternary">
-      <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
+      <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
         <div className="flex flex-row items-center justify-between mb-10">
           <div>
             <span className="text-3xl font-semibold">Những địa điểm hot</span>

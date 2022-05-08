@@ -5,7 +5,7 @@ import HotPlaces from "./components/HotPlaces";
 import FamousPlaces from "./components/FamousPlaces";
 
 import withTransition from "@/common/PageTransition";
-import { Location, LocationPayload } from "@/store/type";
+import { Location } from "@/store/type";
 import { getLocations } from "@/services/api/location";
 import { useState, useEffect } from "react";
 

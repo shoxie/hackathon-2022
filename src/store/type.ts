@@ -40,6 +40,7 @@ export type MarkerType = {
   lat: number;
   lng: number;
   text: string;
+  locationId: number;
 };
 export type MapProps = {
   center?: {
@@ -85,6 +86,7 @@ export type LocationPayload = {
   current_page: number;
   total_page: number;
   locations: Location[];
+  favorites?: Location[];
 };
 
 export type NewPlanPayload = {

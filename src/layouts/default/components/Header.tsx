@@ -1,14 +1,15 @@
 /* eslint-disable react/function-component-definition */
 import { motion, AnimateSharedLayout } from "framer-motion";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import classNames from "classnames";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { BsFacebook, BsGoogle } from "react-icons/bs";
 import { IoIosCloseCircle } from "react-icons/io";
 import { useRouter } from "next/router";
 import { AuthPayload, User } from "@/store/type";
-import { login, register } from "@/services/api";
+import { getUserInfo, login, register } from "@/services/api";
 import userService from "@/services/user";
+import Link from "next/link";
 const menuItems = [
   {
     name: "Trang chủ",
@@ -114,6 +115,8 @@ function Header() {
     email: "",
     password: "",
   });
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [existingUser, setExistingUser] = useState<string>("");
 
   const router = useRouter();
 
@@ -146,6 +149,7 @@ function Header() {
       .then((res) => {
         userService.setUser(res.data as any);
         console.log(res);
+        setIsLoggedIn(true);
       })
       .catch((err) => {
         console.log(err);
@@ -162,6 +166,14 @@ function Header() {
       });
   };
 
+  useEffect(() => {
+    const user = userService.getUser();
+    if (user) {
+      setIsLoggedIn(true);
+      getUserInfo().then((res) => setExistingUser(res.data.email));
+    }
+  }, []);
+
   return (
     <div className="max-w-screen-xl px-5 py-10 mx-auto lg:px-0">
       <div className="flex flex-row items-center justify-between w-full">
@@ -175,7 +187,9 @@ function Header() {
         </button>
         <UndelinedLinks />
         <PopoverPrimitive.Root onOpenChange={handleModalOpen}>
-          <PopoverPrimitive.Trigger className="hidden lg:block">
+          <PopoverPrimitive.Trigger
+            className={classNames(isLoggedIn ? "hidden" : "hidden lg:block")}
+          >
             <button
               type="button"
               className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary"
@@ -232,6 +246,11 @@ function Header() {
             </div>
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Root>
+        <div className={classNames(isLoggedIn ? "" : "lg:block hidden")}>
+          <Link href="/profile" passHref>
+            <a className="hover:underline">{existingUser}</a>
+          </Link>
+        </div>
         <div className="lg:hidden">
           <button
             type="button"

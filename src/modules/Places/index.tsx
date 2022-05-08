@@ -8,7 +8,7 @@ import Map from "@/common/Map";
 import withTransition from "@/common/PageTransition";
 
 import { getLocations } from "@/services/api/location";
-import { Location, LocationPayload } from "@/store/type";
+import { Location, LocationPayload, MarkerType } from "@/store/type";
 
 const Places = () => {
   const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
@@ -19,6 +19,7 @@ const Places = () => {
   } | null>(null);
   const [searchText, setSearchText] = useState<string>("");
   const [locations, setLocations] = useState<Location[] | null>(null);
+  const [markers, setMarkers] = useState<MarkerType[]>([]);
 
   const router = useRouter();
   const { search } = router.query;
@@ -41,6 +42,13 @@ const Places = () => {
         .then((res) => {
           console.log(res.data);
           setLocations(res.data.locations);
+          const markerData = res.data.locations.map((place) => ({
+            lat: place.latitude,
+            lng: place.longitude,
+            text: place.name,
+            locationId: place.id,
+          }));
+          setMarkers(markerData);
         })
         .catch((err) => {
           console.log(err);
@@ -76,10 +84,7 @@ const Places = () => {
       <div className="grid grid-cols-1 space-y-5 md:grid-cols-12 md:space-x-5 md:space-y-0">
         <div className="lg:col-span-3 md:col-span-4">
           <div className="w-full h-40 mb-5 overflow-hidden rounded-xl">
-            <Map
-              center={currentPos}
-              markers={[{ lat: 10.8142, lng: 106.6438, text: "My Marker" }]}
-            />
+            <Map center={currentPos} markers={markers} />
           </div>
           <Filter />
         </div>
