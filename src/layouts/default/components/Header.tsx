@@ -232,18 +232,19 @@ function Header() {
             </div>
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Root>
-        <button
-          type="button"
-          className={classNames(
-            "hamburger lg:hidden relative z-20",
-            isHamOpen ? "active" : ""
-          )}
-          onClick={handleHamClick}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <div className="lg:hidden">
+          <button
+            type="button"
+            className={classNames("hamburger relative z-20", {
+              active: isHamOpen,
+            })}
+            onClick={handleHamClick}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
         <div
           className={classNames(
             "fixed top-0 right-0 bg-white h-screen z-10 transition-all ease-in-out duration-500",

@@ -5,8 +5,23 @@ import HotPlaces from "./components/HotPlaces";
 import FamousPlaces from "./components/FamousPlaces";
 
 import withTransition from "@/common/PageTransition";
+import { Location, LocationPayload } from "@/store/type";
+import { getLocations } from "@/services/api/location";
+import { useState, useEffect } from "react";
 
 const Home = () => {
+  const [locations, setLocations] = useState<Location[] | null>(null);
+
+  useEffect(() => {
+    getLocations()
+      .then((res) => {
+        setLocations(res.data.locations);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <div className="mb-20">
@@ -16,10 +31,10 @@ const Home = () => {
         <DiscountPlaces />
       </div>
       <div className="mb-20">
-        <ShouldGoPlaces />
+        <ShouldGoPlaces places={locations} />
       </div>
       <div className="mb-20">
-        <HotPlaces />
+        <HotPlaces places={locations} />
       </div>
       <div className="mb-20">
         <FamousPlaces />

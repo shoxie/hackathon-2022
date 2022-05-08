@@ -90,3 +90,21 @@ export type LocationPayload = {
 export type NewPlanPayload = {
   name: string;
 };
+
+export type Plan = {
+  id: number;
+  name: string;
+  userId: number;
+  _count: {
+    PlanLocation: number;
+  };
+};
+
+export type PlanLocation = {
+  date: string;
+  id: number;
+  isVisited: boolean;
+  locationId: number;
+  numberOfPeople: number;
+  planId: number;
+};

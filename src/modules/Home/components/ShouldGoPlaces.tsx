@@ -5,50 +5,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import ShouldGo1 from "public/assets/shouldgo-1.png";
-import ShouldGo2 from "public/assets/shouldgo-2.png";
-import ShouldGo3 from "public/assets/shouldgo-3.png";
 import DetailedCard from "@/common/DetailedCard";
-
-const places = [
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo1.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-    destinationType: "Vườn bách thảo",
-  },
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo2.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-  },
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo3.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-  },
-  {
-    code: "F2469WER",
-    content: "Contrary to popular belief, Lorem Ipsum is not ...",
-    background: ShouldGo2.src,
-    rating: 4.8,
-    ratingCount: 1923,
-    toCome: 738,
-  },
-];
+import { Location } from "@/store/type";
 
 SwiperCore.use([Navigation]);
 
-const ShouldGoPlaces = () => {
+type Props = {
+  places?: Location[] | null;
+};
+
+const ShouldGoPlaces = ({ places }: Props) => {
   const [swiper, setSwiper] = useState<SwiperCore>();
 
   const handleClick = (e: React.MouseEvent, direction: string) => {
@@ -108,11 +74,16 @@ const ShouldGoPlaces = () => {
             slidesPerView: 2,
             spaceBetween: 40,
           },
+          // when window width is >= 1024px
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
         }}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
-        {places.map((item, index) => (
+        {places?.map((item, index) => (
           <SwiperSlide key={index}>
             <DetailedCard {...item} isCame={false} />
           </SwiperSlide>

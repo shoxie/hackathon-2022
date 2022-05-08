@@ -34,6 +34,7 @@
     "swiper": "^8.1.4"
   },
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.0",
     "@types/google-map-react": "^2.1.5",
     "@types/node": "17.0.31",
     "@types/react": "17.0.2",

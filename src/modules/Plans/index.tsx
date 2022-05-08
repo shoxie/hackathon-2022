@@ -1,17 +1,20 @@
 import { useRouter } from "next/router";
-import { plans } from "@/lib/contants";
+import { plans as mockPlans } from "@/lib/contants";
 import Link from "next/link";
 import { getAllPlans } from "@/services/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import withTransition from "@/common/PageTransition";
+import { Plan } from "@/store/type";
 
 const UserPlans = () => {
   const router = useRouter();
+  const [plans, setPlans] = useState<Plan[] | null>(null);
 
   useEffect(() => {
     getAllPlans().then((res) => {
       console.log(res);
+      setPlans(res.data.plans);
     });
   }, []);
 
@@ -21,19 +24,21 @@ const UserPlans = () => {
         <h1 className="text-3xl font-semibold">Danh sách các kế hoạch</h1>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3">
-        {plans.map((plan) => (
+        {plans?.map((plan) => (
           <div key={plan.id} className="text-center">
             <div
-              style={{ backgroundImage: `url(${plan.thumbnail})` }}
+              style={{ backgroundImage: `url(${mockPlans[0].thumbnail})` }}
               className="bg-center bg-no-repeat bg-cover rounded-t-full min-h-96 h-96"
             />
             <div className="pt-5">
-              <span className="text-2xl font-medium">{`${plan.name} ${plan.from}-${plan.to}`}</span>
+              <span className="text-2xl font-medium">{`${plan.name}`}</span>
             </div>
             <div className="pt-5">
               <span className="text-2xl font-medium text-gray-300">
-                <span className="text-secondary">{plan.places.length}</span> địa
-                điểm
+                <span className="text-secondary">
+                  {plan._count.PlanLocation}
+                </span>{" "}
+                địa điểm
               </span>
             </div>
             <div className="flex items-center justify-center pt-5">

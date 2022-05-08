@@ -1,17 +1,19 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { plans } from "@/lib/contants";
-import { PlanProps } from "@/store/type";
+import { PlanLocation, PlanProps, Location } from "@/store/type";
 import Link from "next/link";
 import withTransition from "@/common/PageTransition";
 import { AiTwotoneStar, AiOutlineDelete } from "react-icons/ai";
 import Map from "@/common/Map";
 import classNames from "classnames";
 import EmptyPlanBanner from "public/assets/empty-plan-banner.png";
+import { getPlanById, getLocationById } from "@/services/api";
 
 const DetailedUserPlan = () => {
   const router = useRouter();
   const [plan, setPlan] = useState<PlanProps>(plans[0]);
+  const [planLocations, setPlanLocations] = useState<Location[] | []>([]);
   const [markers, setMarkers] = useState<
     {
       lat: number;
@@ -24,32 +26,44 @@ const DetailedUserPlan = () => {
 
   useEffect(() => {
     const planId = parseInt(router.query.id as string);
-    const planData = plans.filter((plan) => plan?.id === planId);
-    setPlan(planData[0]);
-    const markerData = planData[0]?.places.map((place) => ({
-      lat: place.lat,
-      lng: place.lng,
-      text: place.name,
-    }));
-    if (planData[0]?.places.length > 0) {
-      setSelectedPlace(0);
-    }
-    setMarkers(markerData);
+    if (!planId) return;
+    getPlanById(planId).then(async (res) => {
+      const temp = [];
+      for (let i = 0; i < res.data.PlanLocation.length; i++) {
+        await getLocationById(res.data.PlanLocation[i].id).then((result) => {
+          temp = [...temp, result.data];
+        });
+      }
+      setPlanLocations(temp);
+    });
   }, [router.query.id]);
 
-  if (!plan || plan?.places.length === 0) {
+  useEffect(() => {
+    console.log("test", planLocations); // 1
+    if (planLocations.length > 0) {
+      const markerData = planLocations.map((place) => ({
+        lat: place.latitude,
+        lng: place.longitude,
+        text: place.name,
+      }));
+      setSelectedPlace(0);
+      setMarkers(markerData);
+    }
+  }, [planLocations]);
+
+  if (planLocations.length === 0) {
     return (
-      <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
+      <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
         <div>
           <h1 className="inline text-2xl font-semibold">
             Bạn có{" "}
-            <h1 className="inline text-secondary">{plan?.places.length}</h1> địa
-            điểm trong kế hoạch
+            <h1 className="inline text-secondary">{planLocations?.length}</h1>{" "}
+            địa điểm trong kế hoạch
           </h1>
           <div className="flex flex-col items-center justify-center w-full text-center">
             <div
               style={{ backgroundImage: `url(${EmptyPlanBanner.src})` }}
-              className="h-48 bg-center bg-no-repeat bg-cover w-96 mb-5"
+              className="h-48 mb-5 bg-center bg-no-repeat bg-cover w-96"
             />
             <span className="block text-3xl font-semibold text-gray-600">
               Bạn chưa thêm địa điểm nào vào danh sách!
@@ -73,7 +87,7 @@ const DetailedUserPlan = () => {
 
   return (
     <>
-      <div className="pb-10 mx-auto max-w-screen-xl lg:px-0 px-5">
+      <div className="max-w-screen-xl px-5 pb-10 mx-auto lg:px-0">
         <button
           onClick={() => setIsMapView(false)}
           className={classNames(
@@ -90,7 +104,7 @@ const DetailedUserPlan = () => {
           isMapView ? "hidden" : ""
         )}
       >
-        <div className="flex md:flex-row flex-col md:space-y-0 space-y-5 items-center justify-between py-10">
+        <div className="flex flex-col items-center justify-between py-10 space-y-5 md:flex-row md:space-y-0">
           <h1 className="inline text-2xl font-semibold">
             Bạn có{" "}
             <h1 className="inline text-secondary">{plan?.places.length}</h1> địa
@@ -104,9 +118,9 @@ const DetailedUserPlan = () => {
             </Link>
           </div>
         </div>
-        <div className="grid lg:grid-cols-12 grid-cols-1 lg:space-x-10 space-y-10">
-          <div className="flex flex-col w-full lg:col-span-5 space-y-5">
-            {plan?.places.map((place, idx) => (
+        <div className="grid grid-cols-1 space-y-10 lg:space-y-0 lg:grid-cols-12 lg:space-x-10">
+          <div className="flex flex-col w-full space-y-5 lg:col-span-5">
+            {planLocations?.map((place, idx) => (
               <div
                 key={idx}
                 className="flex flex-row items-center space-x-3 cursor-pointer"
@@ -132,11 +146,11 @@ const DetailedUserPlan = () => {
                         <div className="flex flex-row items-center space-x-1">
                           <div className="flex flex-row items-center text-lg text-yellow-400">
                             <AiTwotoneStar />
-                            <span>{place.rating}</span>
+                            <span>{place.review}</span>
                           </div>
                           <div>
                             <span className="font-medium text-gray-300">
-                              ({place.ratingCount} đánh giá)
+                              ({place.review} đánh giá)
                             </span>
                           </div>
                         </div>
@@ -148,7 +162,7 @@ const DetailedUserPlan = () => {
                       <div>
                         <span className="text-lg text-gray-400">
                           <span className="text-2xl text-secondary">
-                            {place.toCome}
+                            {place.intendedPeople}
                           </span>{" "}
                           dự định đến
                         </span>
@@ -156,7 +170,7 @@ const DetailedUserPlan = () => {
                       <div>
                         <span className="text-lg text-gray-400">
                           <span className="text-2xl text-secondary">
-                            {place.willCome}
+                            {place.highIntendedPeople}
                           </span>{" "}
                           sẽ đến
                         </span>
@@ -177,8 +191,8 @@ const DetailedUserPlan = () => {
             <Map
               markers={markers}
               center={{
-                lat: plan?.places[selectedPlace].lat,
-                lng: plan?.places[selectedPlace].lng,
+                lat: planLocations[selectedPlace].latitude,
+                lng: planLocations[selectedPlace].longitude,
               }}
             />
             <div className="absolute bottom-5 left-5">
