@@ -28,7 +28,7 @@ const FamousPlaces = () => {
   };
 
   return (
-    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
+    <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
       <div className="flex flex-row items-center justify-between mb-10">
         <div>
           <span className="text-3xl font-semibold">Địa danh nổi tiếng</span>
@@ -57,18 +57,23 @@ const FamousPlaces = () => {
           // when window width is >= 320px
           320: {
             slidesPerView: 2,
-            spaceBetween: 20
+            spaceBetween: 20,
           },
           // when window width is >= 480px
           480: {
             slidesPerView: 3,
-            spaceBetween: 30
+            spaceBetween: 30,
           },
           // when window width is >= 640px
           640: {
             slidesPerView: 3,
-            spaceBetween: 40
-          }
+            spaceBetween: 40,
+          },
+          // when window width is >= 1024px
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
         }}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => setSwiper(swiper)}

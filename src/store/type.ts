@@ -48,3 +48,45 @@ export type MapProps = {
   } | null;
   markers?: MarkerType[];
 };
+
+export type User = {
+  email: string;
+  password: string;
+};
+
+export type AuthPayload = {
+  user: {
+    id: number;
+    email: string;
+  };
+  token: string;
+};
+
+export type LocationImage = {
+  id: string;
+  image_url: string;
+  locationId: number;
+};
+
+export interface Location {
+  id: number;
+  name: string;
+  thumbnail: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  highIntendedPeople: number;
+  intendedPeople: number;
+  review: number;
+  LocationImages: LocationImage[];
+}
+
+export type LocationPayload = {
+  current_page: number;
+  total_page: number;
+  locations: Location[];
+};
+
+export type NewPlanPayload = {
+  name: string;
+};

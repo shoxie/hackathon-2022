@@ -36,7 +36,7 @@ const DetailedUserPlan = () => {
     }
     setMarkers(markerData);
   }, [router.query.id]);
-  
+
   if (!plan || plan?.places.length === 0) {
     return (
       <div className="mx-auto max-w-screen-xl lg:px-0 px-5">

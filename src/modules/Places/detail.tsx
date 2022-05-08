@@ -8,12 +8,15 @@ import {
 import ImageCarouselLightBox from "./components/ImageCarouselLightBox";
 import LineGraph from "./components/LineGraph";
 import CommentSection from "@/common/CommentSection";
+import CouponCard from "@/common/CouponCard";
 
 import classNames from "classnames";
-import { useState } from "react";
 import { discounts, lineChartData, lineChartData1Week } from "@/lib/contants";
 import Calendar from "react-calendar";
-import CouponCard from "@/common/CouponCard";
+import { useEffect, useState } from "react";
+import { Location } from "@/store/type";
+import { useRouter } from "next/router";
+import { getLocationById, getLocationGraphData } from "@/services/api/location";
 
 const data = {
   name: "Vườn bách thú Đà Lạt",
@@ -27,19 +30,15 @@ const data = {
 const graphFilterOptions = [
   {
     id: 0,
-    name: "48h",
+    name: "Giờ",
   },
   {
     id: 1,
-    name: "7 ngày",
+    name: "Tuần",
   },
   {
     id: 2,
-    name: "30 ngày",
-  },
-  {
-    id: 3,
-    name: "90 ngày",
+    name: "Tháng",
   },
 ];
 
@@ -48,6 +47,10 @@ const PlaceDetail = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [detail, setDetail] = useState<Location | null>(null);
+  const [graphData, setGraphData] = useState<any[]>([]);
+
+  const router = useRouter();
 
   const getChartData = () => {
     switch (currentFilterIndex) {
@@ -63,15 +66,13 @@ const PlaceDetail = () => {
   const getLabel = () => {
     switch (currentFilterIndex) {
       case 0:
-        return "48h";
+        return "giờ qua";
       case 1:
-        return "7 ngày";
+        return "tuần qua";
       case 2:
-        return "30 ngày";
-      case 3:
-        return "90 ngày";
+        return "tháng qua";
       default:
-        return "48h";
+        return "giờ qua";
     }
   };
 
@@ -83,21 +84,64 @@ const PlaceDetail = () => {
     setIsCalendarOpen(!isCalendarOpen);
   };
 
+  const parseGraphObject = (data: any) => {
+    const temp = data.x.map((item: string, index: number) => {
+      return {
+        name: new Date(item).toLocaleDateString("vi-VN"),
+        pv: data.intended[index],
+        uv: data.reality[index],
+      };
+    });
+    setGraphData(temp);
+  };
+
+  useEffect(() => {
+    const id = router.query.id as string;
+    if (!id) return;
+    getLocationById(id).then((res) => {
+      setDetail(res.data);
+    });
+    getLocationGraphData(id, "hour").then((res) => {
+      parseGraphObject(res.data);
+    });
+  }, [router.query.id]);
+
+  useEffect(() => {
+    let filter;
+    switch (currentFilterIndex) {
+      case 0:
+        filter = "hour";
+        break;
+      case 1:
+        filter = "week";
+        break;
+      case 2:
+        filter = "month";
+        break;
+      default:
+        filter = "hour";
+        break;
+    }
+    getLocationGraphData(router.query.id as string, filter).then((res) => {
+      parseGraphObject(res.data);
+    });
+  }, [currentFilterIndex]);
+
   return (
-    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
-      <ImageCarouselLightBox />
+    <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
+      <ImageCarouselLightBox images={detail?.LocationImages} />
       <div className="flex flex-col space-y-10">
         <div>
-          <h1 className="text-3xl font-semibold">{data.name}</h1>
+          <h1 className="text-3xl font-semibold">{detail?.name}</h1>
         </div>
         <div>
           <div className="flex flex-row items-center space-x-1">
             <div className="flex flex-row items-center text-yellow-400">
               <AiTwotoneStar />
-              <span>{data.rating}</span>
+              <span>{detail?.review}</span>
             </div>
             <div>
-              <span className="text-black">({data.ratingCount} đánh giá)</span>
+              <span className="text-black">({detail?.review} đánh giá)</span>
             </div>
           </div>
         </div>
@@ -123,17 +167,19 @@ const PlaceDetail = () => {
           </p>
         </div>
         <div className="flex items-center justify-center">
-          <div className="flex flex-row items-center justify-center lg:space-x-40 md:space-x-20 space-x-5 text-gray-400 bg-quaternary max-w-max">
-            <div className="md:p-20 p-5 text-center">
-              <span className="md:text-2xl text-xl font-semibold">
-                <span className="text-secondary">{data.toComeCapacity}</span>
+          <div className="flex flex-row items-center justify-center space-x-5 text-gray-400 lg:space-x-40 md:space-x-20 bg-quaternary max-w-max">
+            <div className="p-5 text-center md:p-20">
+              <span className="text-xl font-semibold md:text-2xl">
+                <span className="text-secondary">{detail?.intendedPeople}</span>
                 <br />
                 số người dự định đến
               </span>
             </div>
-            <div className="md:p-20 p-5 text-center">
-              <span className="md:text-2xl text-xl font-semibold">
-                <span className="text-secondary">{data.willComeCapacity}</span>
+            <div className="p-5 text-center md:p-20">
+              <span className="text-xl font-semibold md:text-2xl">
+                <span className="text-secondary">
+                  {detail?.highIntendedPeople}
+                </span>
                 <br />
                 số người ít nhất sẽ đến
               </span>
@@ -160,7 +206,7 @@ const PlaceDetail = () => {
           ))}
         </div>
         <div className="h-[50vh] my-5">
-          <LineGraph data={getChartData()} />
+          <LineGraph data={graphData} />
         </div>
 
         <div className="text-center">

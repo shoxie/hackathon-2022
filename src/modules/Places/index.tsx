@@ -7,6 +7,9 @@ import Filter from "./components/Filter";
 import Map from "@/common/Map";
 import withTransition from "@/common/PageTransition";
 
+import { getLocations } from "@/services/api/location";
+import { Location, LocationPayload } from "@/store/type";
+
 const Places = () => {
   const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
   const [isQuerying, setIsQuerying] = useState<boolean>(false);
@@ -15,6 +18,7 @@ const Places = () => {
     lng: number;
   } | null>(null);
   const [searchText, setSearchText] = useState<string>("");
+  const [locations, setLocations] = useState<Location[] | null>(null);
 
   const router = useRouter();
   const { search } = router.query;
@@ -33,11 +37,19 @@ const Places = () => {
       } else {
         console.log("Not Available");
       }
+      getLocations()
+        .then((res) => {
+          console.log(res.data);
+          setLocations(res.data.locations);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [search]);
 
   return (
-    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
+    <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
       <div className="flex justify-center">
         <div className="relative w-3/4">
           <div className="absolute top-2.5 left-5">
@@ -61,7 +73,7 @@ const Places = () => {
           {isQuerying ? `Hoạt động khợp với ${search}` : "Các địa điểm gần bạn"}
         </span>
       </div>
-      <div className="grid md:grid-cols-12 grid-cols-1 md:space-x-5 space-y-5">
+      <div className="grid grid-cols-1 space-y-5 md:grid-cols-12 md:space-x-5 md:space-y-0">
         <div className="lg:col-span-3 md:col-span-4">
           <div className="w-full h-40 mb-5 overflow-hidden rounded-xl">
             <Map
@@ -72,7 +84,7 @@ const Places = () => {
           <Filter />
         </div>
         <div className="lg:col-span-9 md:col-span-8">
-          <Container />
+          <Container locations={locations} />
         </div>
       </div>
     </div>

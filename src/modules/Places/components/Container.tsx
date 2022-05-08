@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 import { places } from "@/lib/contants";
 import classNames from "classnames";
 
-import { PlaceProps } from "@/store/type";
+import { Location, PlaceProps } from "@/store/type";
 
-const Container = () => {
+type Props = {
+  locations?: Location[] | null;
+};
+
+const Container = ({ locations }: Props) => {
   const [page, onChange] = useState<number>(1);
   const [data, setData] = useState<PlaceProps[]>([]);
   const pagination = usePagination({
@@ -22,8 +26,8 @@ const Container = () => {
 
   return (
     <>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
-        {data.map((place, index) => (
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2">
+        {locations?.map((place, index) => (
           <DetailedCard key={index} {...place} isCame={false} />
         ))}
       </div>

@@ -6,7 +6,9 @@ import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { BsFacebook, BsGoogle } from "react-icons/bs";
 import { IoIosCloseCircle } from "react-icons/io";
 import { useRouter } from "next/router";
-
+import { AuthPayload, User } from "@/store/type";
+import { login, register } from "@/services/api";
+import userService from "@/services/user";
 const menuItems = [
   {
     name: "Trang chủ",
@@ -63,7 +65,7 @@ const UndelinedLinks = () => {
   };
 
   return (
-    <div className="hidden lg:flex flex-row space-x-16">
+    <div className="flex-row hidden space-x-16 lg:flex">
       <AnimateSharedLayout>
         {menuItems.map((item, idx: number) => (
           <CustomLink
@@ -108,6 +110,11 @@ const items = {
 function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isHamOpen, setIsHamOpen] = useState<boolean>(false);
+  const [user, setUser] = useState<User>({
+    email: "",
+    password: "",
+  });
+
   const router = useRouter();
 
   const handleModalOpen = (state: boolean) => {
@@ -125,9 +132,38 @@ function Header() {
   const mobileMenuClick = (path: string) => {
     router.push(path);
     setIsHamOpen(false);
-  }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => {
+    setUser({ ...user, [key]: e.target.value });
+  };
+
+  const handleLogin = () => {
+    login(user)
+      .then((res) => {
+        userService.setUser(res.data as any);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleSignUp = () => {
+    register(user)
+      .then((res) => {
+        userService.setUser(res.data as any);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <div className="max-w-screen-xl py-10 mx-auto lg:px-0 px-5">
+    <div className="max-w-screen-xl px-5 py-10 mx-auto lg:px-0">
       <div className="flex flex-row items-center justify-between w-full">
         <button
           type="button"
@@ -143,16 +179,16 @@ function Header() {
             <button
               type="button"
               className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary"
-              onClick={() => router.push("/profile")}
+              // onClick={() => router.push("/profile")}
             >
               Đăng nhập
             </button>
           </PopoverPrimitive.Trigger>
           <PopoverPrimitive.Content>
-            <div className="relative p-10 mt-5 bg-white border border-black rounded-lg w-80">
+            <div className="relative p-10 mt-5 bg-white border border-black rounded-lg w-96">
               <button
                 type="button"
-                className="absolute top-0 right-10"
+                className="absolute top-3 right-3"
                 onClick={handleCloseModal}
               >
                 <IoIosCloseCircle className="text-2xl text-primary" />
@@ -163,13 +199,31 @@ function Header() {
                     Đăng nhập
                   </span>
                 </div>
-                <div className="flex flex-row items-center w-40 p-2 space-x-5 border border-black rounded-full">
-                  <BsGoogle className="text-2xl" />
-                  <span>Google</span>
+                <div className="flex flex-col items-start p-2 rounded-full">
+                  <label htmlFor="username">Tên đăng nhập</label>
+                  <input
+                    className="pl-2 border rounded-lg border-primary focus:outline-none"
+                    id="username"
+                    onChange={(e) => handleInputChange(e, "email")}
+                    type="text"
+                  />
                 </div>
-                <div className="flex flex-row items-center w-40 p-2 space-x-5 border border-black rounded-full">
-                  <BsFacebook className="text-2xl" />
-                  <span>Facebook</span>
+                <div className="flex flex-col items-start p-2 rounded-full">
+                  <label htmlFor="password">Mật khẩu</label>
+                  <input
+                    className="pl-2 border rounded-lg border-primary focus:outline-none"
+                    id="password"
+                    onChange={(e) => handleInputChange(e, "password")}
+                    type="text"
+                  />
+                </div>
+                <div className="flex flex-row items-center justify-center space-x-5">
+                  <button onClick={handleLogin} className="general-button">
+                    Đăng nhập
+                  </button>
+                  <button onClick={handleSignUp} className="general-button">
+                    Đăng kí
+                  </button>
                 </div>
                 <div>
                   <span>Quay lại</span>
@@ -200,11 +254,14 @@ function Header() {
             variants={variants}
             initial="show"
             animate="show"
-            className="flex flex-col justify-center h-full px-10 space-y-10 text-primary lg:hidden w-full"
+            className="flex flex-col justify-center w-full h-full px-10 space-y-10 text-primary lg:hidden"
           >
             {menuItems.map((item, idx: number) => (
               <motion.div variants={items} key={idx}>
-                <button type="button" onClick={() => mobileMenuClick(item.path)}>
+                <button
+                  type="button"
+                  onClick={() => mobileMenuClick(item.path)}
+                >
                   <span className="text-lg font-black uppercase font-rajdhani">
                     {item.name}
                   </span>

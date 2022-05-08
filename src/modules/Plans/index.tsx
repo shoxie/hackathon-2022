@@ -1,17 +1,26 @@
 import { useRouter } from "next/router";
 import { plans } from "@/lib/contants";
 import Link from "next/link";
+import { getAllPlans } from "@/services/api";
+import { useEffect } from "react";
+
 import withTransition from "@/common/PageTransition";
 
 const UserPlans = () => {
   const router = useRouter();
 
+  useEffect(() => {
+    getAllPlans().then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
-    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
+    <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
       <div className="py-10">
         <h1 className="text-3xl font-semibold">Danh sách các kế hoạch</h1>
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2">
+      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3">
         {plans.map((plan) => (
           <div key={plan.id} className="text-center">
             <div

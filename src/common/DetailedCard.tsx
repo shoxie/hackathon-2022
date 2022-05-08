@@ -3,20 +3,27 @@ import Link from "next/link";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { fadeInUp } from "@/lib/contants";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Location } from "@/store/type";
+import SelectionBox from "./SelectionBox";
+import { getAllPlans } from "@/services/api";
+import classnames from "classnames";
 
-type Props = {
-  background: string;
-  content: string;
-  rating: number;
-  ratingCount: number;
-  toCome: number;
-  destinationType?: string;
+interface Props extends Location {
   isCame: boolean;
-};
+}
 
 const DetailedCard = (props: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isNewPlanOpen, setIsNewPlanOpen] = useState<boolean>(false);
+  const [newPlanValue, setNewPlanValue] = useState<string>("");
+  const [plans, setPlans] = useState([]);
+
+  useEffect(() => {
+    getAllPlans().then((res) => {
+      setPlans(res.data.plans);
+    });
+  }, []);
 
   const getCountText = (count: number) => {
     if (count > 100) {
@@ -33,41 +40,49 @@ const DetailedCard = (props: Props) => {
   const handleOpenModal = (state: boolean) => {
     setIsOpen(state);
   };
+  const onSelectPlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    if (value === "new") {
+      setIsNewPlanOpen(true);
+    }
+  };
 
   return (
     <>
       <div className="p-3 bg-white border border-gray-300 rounded-lg">
         <div
           style={{
-            backgroundImage: `url(${props.background})`,
+            backgroundImage: `url(${props.thumbnail})`,
           }}
           className="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg cursor-pointer"
         />
         <div className="flex flex-col pt-2 space-y-2">
           <div>
-            <Link href="/places/detail" passHref>
+            <Link href={`/places/${props.id}`} passHref>
               <a className="text-lg font-medium text-black cursor-pointer hover:underline">
-                {props.content}
+                {props.name}
               </a>
             </Link>
           </div>
           <div className="flex flex-row items-center space-x-1">
             <div className="flex flex-row items-center text-yellow-400">
               <AiTwotoneStar />
-              <span>{props.rating}</span>
+              <span>{props.review ?? "TBD"}</span>
             </div>
             <div>
-              <span className="text-gray-400">({props.ratingCount})</span>
+              <span className="text-gray-400">({props.review})</span>
             </div>
           </div>
           <div className="flex flex-row items-center space-x-5 text-sm text-gray-400">
-            <span>{getCountText(props.toCome)}</span>
-            <span>{props.destinationType ?? ""}</span>
+            <span>{getCountText(props.highIntendedPeople)}</span>
+            <span>{""}</span>
           </div>
           <div className="flex flex-row items-end justify-between">
             <div>
               <span className="text-gray-400">
-                <span className="font-medium text-primary">{props.toCome}</span>{" "}
+                <span className="font-medium text-primary">
+                  {props.highIntendedPeople}
+                </span>{" "}
                 người sẽ đến
               </span>
             </div>
@@ -131,9 +146,43 @@ const DetailedCard = (props: Props) => {
                       <div className="text-center">
                         <span className="text-2xl font-semibold">
                           Thêm địa điểm{" "}
-                          <span className="text-primary">{props.content}</span>{" "}
-                          vào kế hoạch
+                          <span className="text-primary">{props.name}</span> vào
+                          kế hoạch
                         </span>
+                      </div>
+                      <div className="flex items-center justify-center w-full space-x-5">
+                        <span>Chọn kế hoạch của bạn</span>
+                        <select
+                          className="px-5 py-1 bg-transparent border rounded-xl focus:outline-none border-secondary"
+                          onChange={onSelectPlanChange}
+                        >
+                          {plans.length === 0 && <option value=""></option>}
+                          {plans?.map((plan) => (
+                            <option key={plan.id} value={plan.id}>
+                              {plan.name}
+                            </option>
+                          ))}
+                          <option value="new">Tạo kế hoạch mới</option>
+                        </select>
+                      </div>
+                      <div
+                        className={classnames(
+                          isNewPlanOpen ? "block" : "hidden"
+                        )}
+                      >
+                        <div className="flex items-center justify-center w-full space-x-5">
+                          <label>Tên kế hoạch mới</label>
+                          <input
+                            type="text"
+                            className="pl-2 border focus:outline-none border-secondary rounded-xl"
+                            onChange={(e) => setNewPlanValue(e.target.value)}
+                          />
+                        </div>
+                        <div className="flex items-center justify-center w-full pt-5 space-x-5">
+                          <button className="px-5 py-1 transition-all duration-300 border rounded-md border-secondary hover:bg-secondary hover:text-white text-secondary">
+                            Tạo mới
+                          </button>
+                        </div>
                       </div>
                       <div className="flex flex-row items-center justify-center space-x-10">
                         <button className="px-5 py-1 transition-all duration-300 border rounded-md border-secondary hover:bg-secondary hover:text-white text-secondary">

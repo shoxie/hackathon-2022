@@ -52,20 +52,21 @@ a {
   width: 28px;
   height: 2px;
   border-radius: 9999px;
-  background-color: #3785FD;
+  background-color: #3785fd;
 }
 
 .hamburger > span:not(:last-child) {
-  margin-bottom: 7px
+  margin-bottom: 7px;
 }
 
-.hamburger, .hamburger > span {
-  transition: all .4s ease-in-out
+.hamburger,
+.hamburger > span {
+  transition: all 0.4s ease-in-out;
 }
 
 .hamburger.active {
   transition-delay: 0.8s;
-  transform: rotate(45deg)
+  transform: rotate(45deg);
 }
 
 .hamburger.active > span:nth-child(2) {
@@ -74,13 +75,13 @@ a {
 
 .hamburger.active > span:nth-child(1),
 .hamburger.active > span:nth-child(3) {
-  transition-delay: .4s;
+  transition-delay: 0.4s;
 }
 
 .hamburger.active > span:nth-child(1) {
-  transform: translateY(18px) rotate(90deg)
+  transform: translateY(18px) rotate(90deg);
 }
 
 .hamburbger.active > span:nth-child(3) {
-  transform: translateY(-9px) rotate(90deg)
+  transform: translateY(-9px) rotate(90deg);
 }

@@ -63,9 +63,9 @@ const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
-    <div className="mx-auto max-w-screen-xl">
+    <div className="max-w-screen-xl mx-auto">
       <div className="grid grid-cols-12 space-x-10">
-        <div className="col-span-2">
+        <div className="col-span-3">
           <div className="border border-gray-400 rounded-xl">
             <div className="flex flex-row items-center justify-start py-2 pl-10 space-x-5">
               <div
@@ -104,7 +104,7 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-        <div className="min-w-full col-span-10">
+        <div className="min-w-full col-span-9">
           <SwitchTab index={currentTab} />
         </div>
       </div>

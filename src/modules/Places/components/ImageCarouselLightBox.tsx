@@ -7,10 +7,14 @@ import "swiper/css/navigation";
 import { images } from "@/lib/contants";
 import Lightbox from "react-image-lightbox";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { LocationImage } from "@/store/type";
 
 SwiperCore.use([Navigation]);
 
-const ImageCarouselLightBox = () => {
+type Props = {
+  images?: LocationImage[];
+};
+const ImageCarouselLightBox = ({ images }: Props) => {
   const [swiper, setSwiper] = useState<SwiperCore>();
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
   const [photoIndex, setPhotoIndex] = useState<number>(0);
@@ -38,10 +42,10 @@ const ImageCarouselLightBox = () => {
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
-        {images.map((item, index) => (
+        {images?.map((item, index) => (
           <SwiperSlide key={index} className="relative z-[1]">
             <div
-              style={{ backgroundImage: `url(${item})` }}
+              style={{ backgroundImage: `url(${item.image_url})` }}
               className="lg:h-[50vh] lg:min-h-[50vh] md:min-h-[40vh] min-h-[20vh] bg-cover bg-center bg-no-repeat rounded-xl cursor-pointer"
               onClick={() => setIsLightboxOpen(true)}
             />
@@ -67,11 +71,13 @@ const ImageCarouselLightBox = () => {
           <BsChevronRight className="text-xl text-primary group-hover:text-white" />
         </button>
       </div>
-      {isLightboxOpen && (
+      {isLightboxOpen && images && (
         <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+          mainSrc={images[photoIndex].image_url}
+          nextSrc={images[(photoIndex + 1) % images.length].image_url}
+          prevSrc={
+            images[(photoIndex + images.length - 1) % images.length].image_url
+          }
           onCloseRequest={() => setIsLightboxOpen(false)}
           onMovePrevRequest={() =>
             setPhotoIndex((photoIndex + images.length - 1) % images.length)
