@@ -37,7 +37,7 @@ const Places = () => {
   }, [search]);
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
       <div className="flex justify-center">
         <div className="relative w-3/4">
           <div className="absolute top-2.5 left-5">
@@ -61,8 +61,8 @@ const Places = () => {
           {isQuerying ? `Hoạt động khợp với ${search}` : "Các địa điểm gần bạn"}
         </span>
       </div>
-      <div className="grid grid-cols-12 space-x-5">
-        <div className="col-span-3">
+      <div className="grid md:grid-cols-12 grid-cols-1 md:space-x-5 space-y-5">
+        <div className="lg:col-span-3 md:col-span-4">
           <div className="w-full h-40 mb-5 overflow-hidden rounded-xl">
             <Map
               center={currentPos}
@@ -71,7 +71,7 @@ const Places = () => {
           </div>
           <Filter />
         </div>
-        <div className="col-span-9">
+        <div className="lg:col-span-9 md:col-span-8">
           <Container />
         </div>
       </div>

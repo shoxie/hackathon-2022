@@ -42,7 +42,7 @@ const ImageCarouselLightBox = () => {
           <SwiperSlide key={index} className="relative z-[1]">
             <div
               style={{ backgroundImage: `url(${item})` }}
-              className="lg:h-[50vh] lg:min-h-[50vh] bg-cover bg-center bg-no-repeat rounded-xl cursor-pointer"
+              className="lg:h-[50vh] lg:min-h-[50vh] md:min-h-[40vh] min-h-[20vh] bg-cover bg-center bg-no-repeat rounded-xl cursor-pointer"
               onClick={() => setIsLightboxOpen(true)}
             />
           </SwiperSlide>

@@ -7,11 +7,11 @@ const UserPlans = () => {
   const router = useRouter();
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
       <div className="py-10">
         <h1 className="text-3xl font-semibold">Danh sách các kế hoạch</h1>
       </div>
-      <div className="grid grid-cols-4">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2">
         {plans.map((plan) => (
           <div key={plan.id} className="text-center">
             <div

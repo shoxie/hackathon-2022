@@ -63,7 +63,7 @@ const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <div className="mx-auto max-w-screen-xl">
       <div className="grid grid-cols-12 space-x-10">
         <div className="col-span-2">
           <div className="border border-gray-400 rounded-xl">

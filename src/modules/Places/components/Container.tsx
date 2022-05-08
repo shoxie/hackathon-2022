@@ -22,7 +22,7 @@ const Container = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
         {data.map((place, index) => (
           <DetailedCard key={index} {...place} isCame={false} />
         ))}

@@ -28,7 +28,7 @@ type LinkProps = {
   onClick: () => void;
 };
 
-const Link: FC<LinkProps> = ({ selected, onClick, text }) => {
+const CustomLink: FC<LinkProps> = ({ selected, onClick, text }) => {
   return (
     <motion.div
       className={classNames(
@@ -53,7 +53,7 @@ const Link: FC<LinkProps> = ({ selected, onClick, text }) => {
 };
 
 const UndelinedLinks = () => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState<number>(0);
 
   const router = useRouter();
 
@@ -63,10 +63,10 @@ const UndelinedLinks = () => {
   };
 
   return (
-    <div className="flex flex-row space-x-16">
+    <div className="hidden lg:flex flex-row space-x-16">
       <AnimateSharedLayout>
         {menuItems.map((item, idx: number) => (
-          <Link
+          <CustomLink
             text={item.name}
             key={idx}
             selected={current === idx}
@@ -78,8 +78,36 @@ const UndelinedLinks = () => {
   );
 };
 
+const variants = {
+  hidden: {
+    opacity: 0,
+  },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const items = {
+  hidden: {
+    opacity: 0,
+    x: 50,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.5,
+    },
+  },
+};
+
 function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isHamOpen, setIsHamOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const handleModalOpen = (state: boolean) => {
@@ -90,8 +118,16 @@ function Header() {
     setIsOpen(false);
   };
 
+  const handleHamClick = () => {
+    setIsHamOpen(!isHamOpen);
+  };
+
+  const mobileMenuClick = (path: string) => {
+    router.push(path);
+    setIsHamOpen(false);
+  }
   return (
-    <div className="max-w-screen-xl py-10 mx-auto">
+    <div className="max-w-screen-xl py-10 mx-auto lg:px-0 px-5">
       <div className="flex flex-row items-center justify-between w-full">
         <button
           type="button"
@@ -103,7 +139,7 @@ function Header() {
         </button>
         <UndelinedLinks />
         <PopoverPrimitive.Root onOpenChange={handleModalOpen}>
-          <PopoverPrimitive.Trigger>
+          <PopoverPrimitive.Trigger className="hidden lg:block">
             <button
               type="button"
               className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary"
@@ -142,6 +178,41 @@ function Header() {
             </div>
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Root>
+        <button
+          type="button"
+          className={classNames(
+            "hamburger lg:hidden relative z-20",
+            isHamOpen ? "active" : ""
+          )}
+          onClick={handleHamClick}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <div
+          className={classNames(
+            "fixed top-0 right-0 bg-white h-screen z-10 transition-all ease-in-out duration-500",
+            isHamOpen ? "w-72" : "w-0"
+          )}
+        >
+          <motion.div
+            variants={variants}
+            initial="show"
+            animate="show"
+            className="flex flex-col justify-center h-full px-10 space-y-10 text-primary lg:hidden w-full"
+          >
+            {menuItems.map((item, idx: number) => (
+              <motion.div variants={items} key={idx}>
+                <button type="button" onClick={() => mobileMenuClick(item.path)}>
+                  <span className="text-lg font-black uppercase font-rajdhani">
+                    {item.name}
+                  </span>
+                </button>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </div>
   );

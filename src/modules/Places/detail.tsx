@@ -84,7 +84,7 @@ const PlaceDetail = () => {
   };
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
       <ImageCarouselLightBox />
       <div className="flex flex-col space-y-10">
         <div>
@@ -123,16 +123,16 @@ const PlaceDetail = () => {
           </p>
         </div>
         <div className="flex items-center justify-center">
-          <div className="flex flex-row items-center justify-center space-x-40 text-gray-400 bg-quaternary max-w-max">
-            <div className="p-20 text-center">
-              <span className="text-2xl font-semibold">
+          <div className="flex flex-row items-center justify-center lg:space-x-40 md:space-x-20 space-x-5 text-gray-400 bg-quaternary max-w-max">
+            <div className="md:p-20 p-5 text-center">
+              <span className="md:text-2xl text-xl font-semibold">
                 <span className="text-secondary">{data.toComeCapacity}</span>
                 <br />
                 số người dự định đến
               </span>
             </div>
-            <div className="p-20 text-center">
-              <span className="text-2xl font-semibold">
+            <div className="md:p-20 p-5 text-center">
+              <span className="md:text-2xl text-xl font-semibold">
                 <span className="text-secondary">{data.willComeCapacity}</span>
                 <br />
                 số người ít nhất sẽ đến

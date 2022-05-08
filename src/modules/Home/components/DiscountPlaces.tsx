@@ -30,7 +30,7 @@ const DiscountPlaces = () => {
 
   return (
     <div className="py-10 pb-16 bg-quaternary">
-      <div className="mx-auto max-w-screen-2xl">
+      <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
         <div className="flex flex-row items-center justify-between mb-10">
           <div>
             <span className="text-3xl font-semibold">Ưu đãi hấp dẫn</span>
@@ -55,6 +55,23 @@ const DiscountPlaces = () => {
         <Swiper
           spaceBetween={50}
           slidesPerView={3}
+          breakpoints={{
+            // when window width is >= 320px
+            320: {
+              slidesPerView: 2,
+              spaceBetween: 20
+            },
+            // when window width is >= 480px
+            480: {
+              slidesPerView: 3,
+              spaceBetween: 30
+            },
+            // when window width is >= 640px
+            640: {
+              slidesPerView: 3,
+              spaceBetween: 40
+            }
+          }}
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => setSwiper(swiper)}
         >

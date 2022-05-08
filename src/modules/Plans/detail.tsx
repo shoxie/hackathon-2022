@@ -36,9 +36,10 @@ const DetailedUserPlan = () => {
     }
     setMarkers(markerData);
   }, [router.query.id]);
+  
   if (!plan || plan?.places.length === 0) {
     return (
-      <div className="mx-auto max-w-screen-2xl">
+      <div className="mx-auto max-w-screen-xl lg:px-0 px-5">
         <div>
           <h1 className="inline text-2xl font-semibold">
             Bạn có{" "}
@@ -72,7 +73,7 @@ const DetailedUserPlan = () => {
 
   return (
     <>
-      <div className="pb-10 mx-auto max-w-screen-2xl">
+      <div className="pb-10 mx-auto max-w-screen-xl lg:px-0 px-5">
         <button
           onClick={() => setIsMapView(false)}
           className={classNames(
@@ -85,11 +86,11 @@ const DetailedUserPlan = () => {
       </div>
       <div
         className={classNames(
-          "mx-auto max-w-screen-2xl",
+          "mx-auto max-w-screen-2xl lg:px-0 px-5",
           isMapView ? "hidden" : ""
         )}
       >
-        <div className="flex flex-row items-center justify-between py-10">
+        <div className="flex md:flex-row flex-col md:space-y-0 space-y-5 items-center justify-between py-10">
           <h1 className="inline text-2xl font-semibold">
             Bạn có{" "}
             <h1 className="inline text-secondary">{plan?.places.length}</h1> địa
@@ -103,8 +104,8 @@ const DetailedUserPlan = () => {
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-12 space-x-10">
-          <div className="flex flex-col w-full col-span-5 space-y-5">
+        <div className="grid lg:grid-cols-12 grid-cols-1 lg:space-x-10 space-y-10">
+          <div className="flex flex-col w-full lg:col-span-5 space-y-5">
             {plan?.places.map((place, idx) => (
               <div
                 key={idx}
@@ -172,7 +173,7 @@ const DetailedUserPlan = () => {
               </div>
             ))}
           </div>
-          <div className="w-full rounded-xl overflow-hidden min-h-[50vh] col-span-7 relative">
+          <div className="w-full rounded-xl overflow-hidden min-h-[50vh] lg:col-span-7 relative">
             <Map
               markers={markers}
               center={{
@@ -190,7 +191,7 @@ const DetailedUserPlan = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 space-x-10">
+        {/* <div className="grid grid-cols-12 space-x-10">
           <div className="col-span-5">
             <h2 className="py-10 text-3xl font-semibold">Chi tiết địa điểm</h2>
             <div className="flex flex-row py-5 space-x-5">
@@ -284,7 +285,7 @@ const DetailedUserPlan = () => {
               }}
             />
           </div>
-        </div>
+        </div> */}
       </div>
       <div
         className={classNames(

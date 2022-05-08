@@ -41,23 +41,23 @@ const HeroBanner = () => {
   };
 
   return (
-    <div className="relative z-10 mx-auto max-w-screen-2xl">
+    <div className="relative z-[1] mx-auto max-w-screen-xl lg:px-0 px-5">
       <div
         className="bg-cover bg-no-repeat bg-center lg:h-[50vh] lg:min-h-[50vh] rounded-xl relative"
         style={{ backgroundImage: `url(${HeroBackground.src})` }}
       >
         <div className="pt-10">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-white">
+            <h1 className="lg:text-4xl text-xl font-bold text-white">
               Du lịch 4.0
               <br />
               An toàn - Hiện đại - Tiện lợi
             </h1>
           </div>
         </div>
-        <div className="absolute -translate-x-1/2 -bottom-12 left-1/2 min-h-max min-w-max">
+        <div className="lg:absolute block lg:mt-0 mt-28 lg:-translate-x-1/2 lg:-bottom-12 lg:left-1/2 min-h-max lg:min-w-max">
           <div className="flex items-center justify-center">
-            <div className="flex flex-row items-center justify-center p-6 space-x-10 bg-white shadow-2xl bg-opacity-80 rounded-2xl">
+            <div className="flex lg:flex-row flex-col items-center justify-center p-6 lg:space-x-10 bg-white lg:shadow-2xl bg-opacity-80 rounded-2xl">
               <div className="flex flex-row w-full space-x-3">
                 <div className="mt-1">
                   <GoLocation className="text-2xl" />
