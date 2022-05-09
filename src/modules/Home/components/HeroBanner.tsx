@@ -41,7 +41,7 @@ const HeroBanner = () => {
   };
 
   return (
-    <div className="relative z-[1] mx-auto max-w-screen-xl lg:px-0 px-5">
+    <div className="relative z-[100] mx-auto max-w-screen-xl lg:px-0 px-5">
       <div
         className="bg-cover bg-no-repeat bg-center lg:h-[50vh] lg:min-h-[50vh] rounded-xl relative z-[1]"
         style={{ backgroundImage: `url(${HeroBackground.src})` }}
