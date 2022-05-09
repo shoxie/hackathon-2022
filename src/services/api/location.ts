@@ -1,8 +1,8 @@
 import axiosClient from "@/app/axiosClient";
 import { LocationPayload } from "@/store/type";
 
-export const getLocations = () => {
-  return axiosClient.get<LocationPayload>("/location");
+export const getLocations = (query?: string) => {
+  return axiosClient.get<LocationPayload>(`/location?search=${query ?? ""}`);
 };
 
 export const getLocationById = (id: string | number) => {
@@ -16,3 +16,9 @@ export const getLocationGraphData = (id: string, filter: string) => {
 export const getFavouriteLocations = () => {
   return axiosClient.get<LocationPayload>("/user/favorite");
 };
+
+export const markVisitedLocation = (planId: number | string, locationid: number | string) => {
+  return axiosClient.put<any>(`/plan/${planId}/location/${locationid}`, {
+    isVisited: true,
+  });
+}

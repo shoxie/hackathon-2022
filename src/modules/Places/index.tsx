@@ -25,8 +25,22 @@ const Places = () => {
   const { search } = router.query;
 
   useEffect(() => {
-    if (search) {
+    if (search !== undefined && search !== "") {
       setIsQuerying(true);
+      getLocations(search as string)
+        .then((res) => {
+          setLocations(res.data.locations);
+          const markerData = res.data.locations.map((place) => ({
+            lat: place.latitude,
+            lng: place.longitude,
+            text: place.name,
+            locationId: place.id,
+          }));
+          setMarkers(markerData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -40,7 +54,6 @@ const Places = () => {
       }
       getLocations()
         .then((res) => {
-          console.log(res.data);
           setLocations(res.data.locations);
           const markerData = res.data.locations.map((place) => ({
             lat: place.latitude,

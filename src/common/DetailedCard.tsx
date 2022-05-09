@@ -9,6 +9,8 @@ import SelectionBox from "./SelectionBox";
 import { getAllPlans, createNewPlan, addLocationToPlan } from "@/services/api";
 import classnames from "classnames";
 import Calendar from "react-calendar";
+import userService from "@/services/user";
+import { useNotification } from "@/hooks/useNotification";
 
 interface Props extends Location {
   isCame: boolean;
@@ -22,6 +24,7 @@ const DetailedCard = (props: Props) => {
   const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [date, setDate] = useState<Date>(new Date());
+  const noti = useNotification()
 
   useEffect(() => {
     loadPlans();
@@ -49,6 +52,13 @@ const DetailedCard = (props: Props) => {
   };
 
   const handleOpenModal = (state: boolean) => {
+    const user = userService.getUser()
+    if (!user) {
+      return noti.show({
+        type: "error",
+        message: "Bạn cần đăng nhập để thực hiện chức năng này",
+      })
+    }
     setIsOpen(state);
   };
   const onSelectPlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -64,7 +74,6 @@ const DetailedCard = (props: Props) => {
   const handleCreateNewPlan = () => {
     if (newPlanValue) {
       createNewPlan({ name: newPlanValue }).then((res) => {
-        console.log(res);
         setIsNewPlanOpen(false);
         loadPlans();
       });
@@ -76,6 +85,10 @@ const DetailedCard = (props: Props) => {
     addLocationToPlan(selectedPlanId, props.id, date, numberOfPeople).then(
       (res) => {
         setIsOpen(false);
+        noti.show({
+          type: "success",
+          message: "Thêm thành công",
+        });
       }
     );
   };

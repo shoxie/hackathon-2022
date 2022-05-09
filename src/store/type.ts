@@ -119,3 +119,8 @@ export type UserInfo = {
   name: string | null;
   reputationPoint: number;
 };
+
+export type Notification = {
+  type: "success" | "error" | "loading"
+  message: string
+}

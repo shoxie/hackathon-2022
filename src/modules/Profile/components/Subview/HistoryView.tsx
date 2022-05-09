@@ -4,7 +4,7 @@ import NoHistoryBanner from "public/assets/no-history-banner.png";
 import DetailedCard from "@/common/DetailedCard";
 import { places } from "@/lib/contants";
 import { usePagination } from "@mantine/hooks";
-import { getLocations, getUserPlan } from "@/services/api";
+import { getLocations, getUserPlan, getLocationById } from "@/services/api";
 
 import { Location } from "@/store/type";
 //TODO: change api to real favourite locations
@@ -32,6 +32,13 @@ const HistoryView = () => {
       });
     getUserPlan().then((res) => {
       setData(res.data.plan_location);
+      var temp: Location[] = []
+      for (let i = 0; i < res.data.plan_location.length; i++) {
+        getLocationById(res.data.plan_location[i].id).then((res) => {
+          temp.push(res.data);
+        })
+      }
+      setLocations(temp);
     });
   }, []);
 

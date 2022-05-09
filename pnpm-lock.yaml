@@ -7,6 +7,7 @@ specifiers:
   '@radix-ui/react-dialog': ^0.1.7
   '@radix-ui/react-popover': ^0.1.6
   '@radix-ui/react-select': ^0.1.1
+  '@radix-ui/react-toast': ^0.1.1
   '@tailwindcss/line-clamp': ^0.4.0
   '@types/google-map-react': ^2.1.5
   '@types/js-cookie': ^3.0.2
@@ -23,6 +24,7 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   framer-motion: ^6.3.3
   google-map-react: ^2.1.10
+  immutability-helper: ^3.1.1
   jotai: ^1.6.5
   js-cookie: ^3.0.1
   next: 12.1.2
@@ -46,11 +48,13 @@ dependencies:
   '@radix-ui/react-dialog': 0.1.7_0607d8bab5983684f0a746a30ac1a448
   '@radix-ui/react-popover': 0.1.6_0607d8bab5983684f0a746a30ac1a448
   '@radix-ui/react-select': 0.1.1_0607d8bab5983684f0a746a30ac1a448
+  '@radix-ui/react-toast': 0.1.1_react-dom@17.0.2+react@17.0.2
   '@types/js-cookie': 3.0.2
   axios: 0.27.2
   classnames: 2.3.1
   framer-motion: 6.3.3_react-dom@17.0.2+react@17.0.2
   google-map-react: 2.1.10_react-dom@17.0.2+react@17.0.2
+  immutability-helper: 3.1.1
   jotai: 1.6.5_react@17.0.2
   js-cookie: 3.0.1
   next: 12.1.2_react-dom@17.0.2+react@17.0.2
@@ -737,6 +741,28 @@ packages:
       '@babel/runtime': 7.17.9
       '@radix-ui/react-compose-refs': 0.1.0_react@17.0.2
       react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-toast/0.1.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-9JWC4mPP78OE6muDrpaPf/71dIeozppdcnik1IvsjTxZpDnt9PbTtQj94DdWjlCphbv3S5faD3KL0GOpqKBpTQ==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+      react-dom: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.17.9
+      '@radix-ui/primitive': 0.1.0
+      '@radix-ui/react-compose-refs': 0.1.0_react@17.0.2
+      '@radix-ui/react-context': 0.1.1_react@17.0.2
+      '@radix-ui/react-dismissable-layer': 0.1.5_react@17.0.2
+      '@radix-ui/react-portal': 0.1.4_react-dom@17.0.2+react@17.0.2
+      '@radix-ui/react-presence': 0.1.2_react@17.0.2
+      '@radix-ui/react-primitive': 0.1.4_react@17.0.2
+      '@radix-ui/react-use-callback-ref': 0.1.0_react@17.0.2
+      '@radix-ui/react-use-controllable-state': 0.1.0_react@17.0.2
+      '@radix-ui/react-use-layout-effect': 0.1.0_react@17.0.2
+      '@radix-ui/react-visually-hidden': 0.1.4_react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /@radix-ui/react-use-body-pointer-events/0.1.1_react@17.0.2:
@@ -2142,6 +2168,10 @@ packages:
     resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
     engines: {node: '>= 4'}
     dev: true
+
+  /immutability-helper/3.1.1:
+    resolution: {integrity: sha512-Q0QaXjPjwIju/28TsugCHNEASwoCcJSyJV3uO1sOIQGI0jKgm9f41Lvz0DZj3n46cNCyAZTsEYoY4C2bVRUzyQ==}
+    dev: false
 
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}

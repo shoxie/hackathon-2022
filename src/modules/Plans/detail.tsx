@@ -4,11 +4,12 @@ import { plans } from "@/lib/contants";
 import { PlanLocation, PlanProps, Location, MarkerType } from "@/store/type";
 import Link from "next/link";
 import withTransition from "@/common/PageTransition";
-import { AiTwotoneStar, AiOutlineDelete } from "react-icons/ai";
+import { AiTwotoneStar, AiOutlineDelete, AiOutlineCheck } from "react-icons/ai";
 import Map from "@/common/Map";
 import classNames from "classnames";
 import EmptyPlanBanner from "public/assets/empty-plan-banner.png";
-import { getPlanById, getLocationById } from "@/services/api";
+import { getPlanById, getLocationById, markVisitedLocation } from "@/services/api";
+import { useNotification } from "@/hooks/useNotification";
 
 const DetailedUserPlan = () => {
   const router = useRouter();
@@ -17,6 +18,8 @@ const DetailedUserPlan = () => {
   const [markers, setMarkers] = useState<MarkerType[]>([]);
   const [selectedPlace, setSelectedPlace] = useState<number>(0);
   const [isMapView, setIsMapView] = useState<boolean>(false);
+
+  const noti = useNotification()
 
   useEffect(() => {
     const planId = parseInt(router.query.id as string);
@@ -172,12 +175,28 @@ const DetailedUserPlan = () => {
                         </span>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="p-2 border rounded-lg bg-primary hover:bg-white border-primary group"
-                    >
-                      <AiOutlineDelete className="text-xl text-white group-hover:text-primary" />
-                    </button>
+                    <div className="flex flex-row items-center justify-center space-x-5">
+                      <button
+                        type="button"
+                        className="p-2 border rounded-lg bg-primary hover:bg-white border-primary group"
+                        onClick={() => {
+                          markVisitedLocation(router.query.id as string ,place.id).then(() =>{ 
+                            noti.show({
+                              type: "success",
+                              message: "Đã đánh dấu đã đến",
+                            })
+                          })
+                        }}
+                      >
+                        <AiOutlineCheck className="text-xl text-white group-hover:text-primary" />
+                      </button>
+                      <button
+                        type="button"
+                        className="p-2 border rounded-lg bg-primary hover:bg-white border-primary group"
+                      >
+                        <AiOutlineDelete className="text-xl text-white group-hover:text-primary" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -305,8 +324,8 @@ const DetailedUserPlan = () => {
         <Map
           markers={markers}
           center={{
-            lat: plan?.places[selectedPlace].lat,
-            lng: plan?.places[selectedPlace].lng,
+            lat: planLocations[selectedPlace].latitude,
+            lng: planLocations[selectedPlace].longitude,
           }}
         />
         <div className="absolute max-w-xl bg-white h-3/4 top-5 left-5 rounded-xl">

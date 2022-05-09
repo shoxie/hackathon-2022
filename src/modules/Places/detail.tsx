@@ -107,6 +107,7 @@ const PlaceDetail = () => {
   }, [router.query.id]);
 
   useEffect(() => {
+    if (!router.query.id) return
     let filter;
     switch (currentFilterIndex) {
       case 0:

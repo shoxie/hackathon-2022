@@ -12,6 +12,7 @@ import userService from "@/services/user";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store";
+import { useNotification } from "@/hooks/useNotification";
 
 const menuItems = [
   {
@@ -124,6 +125,8 @@ function Header() {
 
   const router = useRouter();
 
+  const noti = useNotification()
+
   const handleModalOpen = (state: boolean) => {
     setIsOpen(state);
   };
@@ -149,13 +152,25 @@ function Header() {
   };
 
   const handleLogin = () => {
+    noti.show({
+      type: "loading",
+      message: "Đang đăng nhập...",
+    })
     login(user)
       .then((res) => {
         userService.setUser(res.data as any);
         setIsLoggedIn(true);
         handleModalOpen(false);
+        noti.show({
+          type: "success",
+          message: "Đăng nhập thành công",
+        })
       })
       .catch((err) => {
+        noti.show({
+          type: "error",
+          message: "Đăng nhập thất bại",
+        })
         console.log(err);
       });
   };
