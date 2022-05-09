@@ -51,7 +51,9 @@ const DetailedUserPlan = () => {
         <div>
           <h1 className="inline text-2xl font-semibold">
             Bạn có{" "}
-            <span className="inline text-secondary">{planLocations?.length}</h1>{" "}
+            <span className="inline text-secondary">
+              {planLocations?.length}
+            </span>{" "}
             địa điểm trong kế hoạch
           </h1>
           <div className="flex flex-col items-center justify-center w-full text-center">

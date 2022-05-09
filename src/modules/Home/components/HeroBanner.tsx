@@ -43,21 +43,21 @@ const HeroBanner = () => {
   return (
     <div className="relative z-[1] mx-auto max-w-screen-xl lg:px-0 px-5">
       <div
-        className="bg-cover bg-no-repeat bg-center lg:h-[50vh] lg:min-h-[50vh] rounded-xl relative"
+        className="bg-cover bg-no-repeat bg-center lg:h-[50vh] lg:min-h-[50vh] rounded-xl relative z-[1]"
         style={{ backgroundImage: `url(${HeroBackground.src})` }}
       >
         <div className="pt-10">
           <div className="text-center">
-            <h1 className="lg:text-4xl text-xl font-bold text-white">
+            <h1 className="text-xl font-bold text-white lg:text-4xl">
               Du lịch 4.0
               <br />
               An toàn - Hiện đại - Tiện lợi
             </h1>
           </div>
         </div>
-        <div className="lg:absolute block lg:mt-0 mt-28 lg:-translate-x-1/2 lg:-bottom-12 lg:left-1/2 min-h-max lg:min-w-max">
+        <div className="block lg:absolute lg:mt-0 mt-28 lg:-translate-x-1/2 lg:-bottom-12 lg:left-1/2 min-h-max lg:min-w-max">
           <div className="flex items-center justify-center">
-            <div className="flex lg:flex-row flex-col items-center justify-center p-6 lg:space-x-10 bg-white lg:shadow-2xl bg-opacity-80 rounded-2xl">
+            <div className="flex flex-col items-center justify-center p-6 bg-white lg:flex-row lg:space-x-10 lg:shadow-2xl bg-opacity-80 rounded-2xl">
               <div className="flex flex-row w-full space-x-3">
                 <div className="mt-1">
                   <GoLocation className="text-2xl" />

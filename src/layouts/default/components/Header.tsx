@@ -152,8 +152,8 @@ function Header() {
     login(user)
       .then((res) => {
         userService.setUser(res.data as any);
-        console.log(res);
         setIsLoggedIn(true);
+        handleModalOpen(false);
       })
       .catch((err) => {
         console.log(err);
@@ -164,6 +164,7 @@ function Header() {
     register(user)
       .then((res) => {
         userService.setUser(res.data as any);
+        handleModalOpen(false);
       })
       .catch((err) => {
         console.log(err);
@@ -179,7 +180,7 @@ function Header() {
         setExistingUser(res.data.email);
       });
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className="max-w-screen-xl px-5 py-10 mx-auto lg:px-0">
@@ -198,62 +199,85 @@ function Header() {
             className={classNames(isLoggedIn ? "hidden" : "hidden lg:block")}
           >
             <div
-              type="button"
-              className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary cursor-pointer"
+              className="py-2 font-bold text-white rounded-md cursor-pointer font-Montserrat px-7 bg-secondary"
               // onClick={() => router.push("/profile")}
             >
               Đăng nhập
             </div>
           </PopoverPrimitive.Trigger>
-          <PopoverPrimitive.Content>
-            <div className="relative p-10 mt-5 bg-white border border-black rounded-lg w-96">
-              <button
-                type="button"
-                className="absolute top-3 right-3"
-                onClick={handleCloseModal}
-              >
-                <IoIosCloseCircle className="text-2xl text-primary" />
-              </button>
-              <div className="flex flex-col items-center space-y-5">
-                <div>
-                  <span className="text-2xl font-medium text-secondary">
-                    Đăng nhập
-                  </span>
-                </div>
-                <div className="flex flex-col items-start p-2 rounded-full">
-                  <label htmlFor="username">Tên đăng nhập</label>
-                  <input
-                    className="pl-2 border rounded-lg border-primary focus:outline-none"
-                    id="username"
-                    onChange={(e) => handleInputChange(e, "email")}
-                    type="text"
-                  />
-                </div>
-                <div className="flex flex-col items-start p-2 rounded-full">
-                  <label htmlFor="password">Mật khẩu</label>
-                  <input
-                    className="pl-2 border rounded-lg border-primary focus:outline-none"
-                    id="password"
-                    onChange={(e) => handleInputChange(e, "password")}
-                    type="text"
-                  />
-                </div>
-                <div className="flex flex-row items-center justify-center space-x-5">
-                  <button onClick={handleLogin} className="general-button">
-                    Đăng nhập
+          <PopoverPrimitive.Content className="relative z-[2]">
+            {isOpen ? (
+              <div className="relative z-[2]">
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 70,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.4,
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 70,
+                  }}
+                  transition={{
+                    delay: 0.3,
+                  }}
+                  className="relative z-[10] p-10 mt-5 bg-white border border-black rounded-lg w-96"
+                >
+                  <button
+                    type="button"
+                    className="absolute top-3 right-3"
+                    onClick={handleCloseModal}
+                  >
+                    <IoIosCloseCircle className="text-2xl text-primary" />
                   </button>
-                  <button onClick={handleSignUp} className="general-button">
-                    Đăng kí
-                  </button>
-                </div>
-                <div>
-                  <span>Quay lại</span>
-                </div>
+                  <div className="flex flex-col items-center space-y-5">
+                    <div>
+                      <span className="text-2xl font-medium text-secondary">
+                        Đăng nhập
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-start p-2 rounded-full">
+                      <label htmlFor="username">Tên đăng nhập</label>
+                      <input
+                        className="pl-2 border rounded-lg border-primary focus:outline-none"
+                        id="username"
+                        onChange={(e) => handleInputChange(e, "email")}
+                        type="text"
+                      />
+                    </div>
+                    <div className="flex flex-col items-start p-2 rounded-full">
+                      <label htmlFor="password">Mật khẩu</label>
+                      <input
+                        className="pl-2 border rounded-lg border-primary focus:outline-none"
+                        id="password"
+                        onChange={(e) => handleInputChange(e, "password")}
+                        type="password"
+                      />
+                    </div>
+                    <div className="flex flex-row items-center justify-center space-x-5">
+                      <button onClick={handleLogin} className="general-button">
+                        Đăng nhập
+                      </button>
+                      <button onClick={handleSignUp} className="general-button">
+                        Đăng kí
+                      </button>
+                    </div>
+                    <div>
+                      <span>Quay lại</span>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-            </div>
+            ) : null}
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Root>
-        <div className={classNames(isLoggedIn ? "" : "lg:block hidden")}>
+        <div className={classNames(isLoggedIn ? "lg:block hidden" : "hidden")}>
           <Link href="/profile" passHref>
             <a className="hover:underline">{userInfo?.email}</a>
           </Link>
