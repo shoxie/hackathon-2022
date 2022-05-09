@@ -56,9 +56,8 @@ const Filter = () => {
           </div>
           <div className="flex flex-col items-start pt-3 space-y-2">
             {categories.map((item, index) => (
-              <>
+              <div key={index}>
                 <div
-                  key={index}
                   className="flex flex-row items-center space-x-5"
                 >
                   <input type="checkbox" className="w-4 h-4" />
@@ -78,7 +77,7 @@ const Filter = () => {
                     ))}
                   </div>
                 )}
-              </>
+              </div>
             ))}
           </div>
         </div>

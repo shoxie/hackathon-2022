@@ -110,3 +110,12 @@ export type PlanLocation = {
   numberOfPeople: number;
   planId: number;
 };
+
+export type UserInfo = {
+  email: string;
+  exp: number;
+  iat: number;
+  id: number;
+  name: string | null;
+  reputationPoint: number;
+};

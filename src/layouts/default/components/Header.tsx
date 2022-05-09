@@ -10,6 +10,9 @@ import { AuthPayload, User } from "@/store/type";
 import { getUserInfo, login, register } from "@/services/api";
 import userService from "@/services/user";
 import Link from "next/link";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
+
 const menuItems = [
   {
     name: "Trang chủ",
@@ -117,6 +120,7 @@ function Header() {
   });
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [existingUser, setExistingUser] = useState<string>("");
+  const [userInfo, setUserInfo] = useAtom(userAtom);
 
   const router = useRouter();
 
@@ -170,7 +174,10 @@ function Header() {
     const user = userService.getUser();
     if (user) {
       setIsLoggedIn(true);
-      getUserInfo().then((res) => setExistingUser(res.data.email));
+      getUserInfo().then((res) => {
+        setUserInfo(res.data);
+        setExistingUser(res.data.email);
+      });
     }
   }, []);
 
@@ -190,13 +197,13 @@ function Header() {
           <PopoverPrimitive.Trigger
             className={classNames(isLoggedIn ? "hidden" : "hidden lg:block")}
           >
-            <button
+            <div
               type="button"
-              className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary"
+              className="py-2 font-bold text-white rounded-md font-Montserrat px-7 bg-secondary cursor-pointer"
               // onClick={() => router.push("/profile")}
             >
               Đăng nhập
-            </button>
+            </div>
           </PopoverPrimitive.Trigger>
           <PopoverPrimitive.Content>
             <div className="relative p-10 mt-5 bg-white border border-black rounded-lg w-96">
@@ -248,7 +255,7 @@ function Header() {
         </PopoverPrimitive.Root>
         <div className={classNames(isLoggedIn ? "" : "lg:block hidden")}>
           <Link href="/profile" passHref>
-            <a className="hover:underline">{existingUser}</a>
+            <a className="hover:underline">{userInfo?.email}</a>
           </Link>
         </div>
         <div className="lg:hidden">

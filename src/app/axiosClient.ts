@@ -5,7 +5,9 @@ import userService from "@/services/user";
 // import userService from "./service/user.service";
 
 const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3001/",
+  baseURL:
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    "https://travel-flow-hackathon-2022.herokuapp.com/",
   headers: {
     "content-type": "application/json",
   },

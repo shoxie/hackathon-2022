@@ -25,3 +25,7 @@ export const addLocationToPlan = (
     numberOfPeople,
   });
 };
+
+export const getUserPlan = () => {
+  return axiosClient.get("/planlocation");
+};

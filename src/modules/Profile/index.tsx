@@ -13,6 +13,9 @@ import CouponView from "./components/Subview/CouponView";
 import TrustView from "./components/Subview/TrustView";
 import withTransition from "@/common/PageTransition";
 
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
+
 const tabs = [
   {
     id: 0,
@@ -61,6 +64,7 @@ const SwitchTab = ({ index }: { index: number }) => {
 
 const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const [user] = useAtom(userAtom);
 
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -74,7 +78,7 @@ const UserProfile = () => {
               />
               <div className="flex flex-col items-start">
                 <span>Username</span>
-                <span>Email</span>
+                <span>{user?.email}</span>
               </div>
             </div>
             <div className="flex flex-col">

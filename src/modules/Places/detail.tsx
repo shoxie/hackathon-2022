@@ -138,10 +138,12 @@ const PlaceDetail = () => {
           <div className="flex flex-row items-center space-x-1">
             <div className="flex flex-row items-center text-yellow-400">
               <AiTwotoneStar />
-              <span>{detail?.review}</span>
+              <span>{detail?.review.toFixed(1)}</span>
             </div>
             <div>
-              <span className="text-black">({detail?.review} đánh giá)</span>
+              <span className="text-black">
+                ({detail?.review.toFixed(1)} đánh giá)
+              </span>
             </div>
           </div>
         </div>

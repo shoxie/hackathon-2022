@@ -6,11 +6,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { famousPlaces } from "@/lib/contants";
+import { useRouter } from "next/router";
 
 SwiperCore.use([Navigation]);
 
 const FamousPlaces = () => {
   const [swiper, setSwiper] = useState<SwiperCore>();
+
+  const router = useRouter();
 
   const handleClick = (e: React.MouseEvent, direction: string) => {
     if (swiper) {
@@ -25,6 +28,10 @@ const FamousPlaces = () => {
           break;
       }
     }
+  };
+
+  const navigate = (path: string) => {
+    router.push(`/places?search=${path}`);
   };
 
   return (
@@ -81,8 +88,9 @@ const FamousPlaces = () => {
         {famousPlaces.map((item, index) => (
           <SwiperSlide key={index} className="relative z-[1]">
             <div
-              className="relative w-full bg-center bg-no-repeat bg-cover rounded-t-full h-96"
+              className="relative w-full bg-center bg-no-repeat bg-cover rounded-t-full cursor-pointer h-96"
               style={{ backgroundImage: `url(${item.background})` }}
+              onClick={() => navigate(item.name)}
             >
               <div className="absolute w-full text-center bottom-5">
                 <span className="text-3xl font-semibold text-white">

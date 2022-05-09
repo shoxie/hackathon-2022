@@ -100,10 +100,10 @@ const DetailedCard = (props: Props) => {
           <div className="flex flex-row items-center space-x-1">
             <div className="flex flex-row items-center text-yellow-400">
               <AiTwotoneStar />
-              <span>{props.review ?? "TBD"}</span>
+              <span>{props.review.toFixed(1) ?? "TBD"}</span>
             </div>
             <div>
-              <span className="text-gray-400">({props.review})</span>
+              <span className="text-gray-400">({props.review.toFixed(1)})</span>
             </div>
           </div>
           <div className="flex flex-row items-center space-x-5 text-sm text-gray-400">
@@ -198,7 +198,6 @@ const DetailedCard = (props: Props) => {
                       <div className="flex items-center justify-center w-full space-x-5">
                         <span>Chọn kế hoạch của bạn</span>
                         <select
-                          defaultValue={plans?.[0].id}
                           className="px-5 py-1 bg-transparent border rounded-xl focus:outline-none border-secondary"
                           onChange={onSelectPlanChange}
                         >
@@ -234,7 +233,10 @@ const DetailedCard = (props: Props) => {
                         </div>
                       </div>
                       <div className="flex flex-row items-center justify-center space-x-10">
-                        <button className="px-5 py-1 transition-all duration-300 border rounded-md border-secondary hover:bg-secondary hover:text-white text-secondary">
+                        <button
+                          onClick={() => handleOpenModal(false)}
+                          className="px-5 py-1 transition-all duration-300 border rounded-md border-secondary hover:bg-secondary hover:text-white text-secondary"
+                        >
                           Quay lại
                         </button>
                         <button

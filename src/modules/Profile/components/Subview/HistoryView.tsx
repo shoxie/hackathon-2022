@@ -4,8 +4,10 @@ import NoHistoryBanner from "public/assets/no-history-banner.png";
 import DetailedCard from "@/common/DetailedCard";
 import { places } from "@/lib/contants";
 import { usePagination } from "@mantine/hooks";
-import { getLocations } from "@/services/api";
+import { getLocations, getUserPlan } from "@/services/api";
+
 import { Location } from "@/store/type";
+//TODO: change api to real favourite locations
 
 const HistoryView = () => {
   const [page, onChange] = useState<number>(1);
@@ -16,15 +18,21 @@ const HistoryView = () => {
     onChange,
   });
   const [locations, setLocations] = useState<Location[] | null>(null);
+  const [recommendLocations, setRecommendLocations] = useState<
+    Location[] | null
+  >(null);
 
   useEffect(() => {
     getLocations()
       .then((res) => {
-        setLocations(res.data.locations);
+        setRecommendLocations(res.data.locations);
       })
       .catch((err) => {
         console.log(err);
       });
+    getUserPlan().then((res) => {
+      setData(res.data.plan_location);
+    });
   }, []);
 
   useEffect(() => {
@@ -77,7 +85,7 @@ const HistoryView = () => {
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-5 pt-5">
-                {locations?.slice(0, 3).map((place, index) => (
+                {recommendLocations?.slice(0, 3).map((place, index) => (
                   <DetailedCard key={index} {...place} isCame={false} />
                 ))}
               </div>
