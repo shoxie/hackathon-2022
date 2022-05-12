@@ -54,7 +54,8 @@ const CustomLink: FC<LinkProps> = ({ selected, onClick, text, isMobile }) => {
     <motion.div
       className={classNames(
         "relative font-medium flex items-center justify-center text-xl cursor-pointer",
-        selected ? "text-primary" : "text-black"
+        selected ? "text-primary" : "text-black",
+        isMobile ? "hidden" : ""
       )}
       onClick={onClick}
       animate={{ opacity: selected ? 1 : 0.5 }}
@@ -65,7 +66,6 @@ const CustomLink: FC<LinkProps> = ({ selected, onClick, text, isMobile }) => {
           className={classNames(
             "absolute top-[103%] align-middle h-0.5 rounded-2xl w-3/4",
             selected ? "bg-secondary" : "",
-            isMobile ? "hidden" : ""
           )}
           layoutId="underline"
         />
