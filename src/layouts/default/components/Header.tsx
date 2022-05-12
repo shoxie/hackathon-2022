@@ -27,6 +27,14 @@ const menuItems = [
     name: "Kế hoạch",
     path: "/plans",
   },
+  {
+    name: "Đăng nhập",
+    path: "/auth",
+  },
+  {
+    name: "Trang cá nhân",
+    path: "/profile",
+  },
 ];
 
 type LinkProps = {
@@ -125,7 +133,7 @@ function Header() {
 
   const router = useRouter();
 
-  const noti = useNotification()
+  const noti = useNotification();
 
   const handleModalOpen = (state: boolean) => {
     setIsOpen(state);
@@ -155,7 +163,7 @@ function Header() {
     noti.show({
       type: "loading",
       message: "Đang đăng nhập...",
-    })
+    });
     login(user)
       .then((res) => {
         userService.setUser(res.data as any);
@@ -164,13 +172,13 @@ function Header() {
         noti.show({
           type: "success",
           message: "Đăng nhập thành công",
-        })
+        });
       })
       .catch((err) => {
         noti.show({
           type: "error",
           message: "Đăng nhập thất bại",
-        })
+        });
         console.log(err);
       });
   };
@@ -198,7 +206,7 @@ function Header() {
   }, [isLoggedIn]);
 
   return (
-    <div className="max-w-screen-xl px-5 py-10 mx-auto lg:px-0">
+    <div className="max-w-screen-xl px-5 py-10 mx-auto lg:px-0 relative z-[200]">
       <div className="flex flex-row items-center justify-between w-full">
         <button
           type="button"
@@ -297,7 +305,7 @@ function Header() {
             <a className="hover:underline">{userInfo?.email}</a>
           </Link>
         </div>
-        <div className="lg:hidden">
+        <div className="lg:hidden relative z-[200]">
           <button
             type="button"
             className={classNames("hamburger relative z-20", {
@@ -313,7 +321,7 @@ function Header() {
         <div
           className={classNames(
             "fixed top-0 right-0 bg-white h-screen z-10 transition-all ease-in-out duration-500",
-            isHamOpen ? "w-72" : "w-0"
+            isHamOpen ? "w-72 border-l border-primary" : "w-0"
           )}
         >
           <motion.div

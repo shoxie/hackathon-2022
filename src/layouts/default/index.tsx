@@ -6,7 +6,7 @@ import { useNotification } from "@/hooks/useNotification";
 
 // eslint-disable-next-line react/function-component-definition
 const Layout: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const noti = useNotification()
+  const noti = useNotification();
   return (
     <>
       {noti.notis.map((item, idx: number) => (

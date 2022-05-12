@@ -32,11 +32,11 @@ const HistoryView = () => {
       });
     getUserPlan().then((res) => {
       setData(res.data.plan_location);
-      var temp: Location[] = []
+      var temp: Location[] = [];
       for (let i = 0; i < res.data.plan_location.length; i++) {
         getLocationById(res.data.plan_location[i].id).then((res) => {
           temp.push(res.data);
-        })
+        });
       }
       setLocations(temp);
     });

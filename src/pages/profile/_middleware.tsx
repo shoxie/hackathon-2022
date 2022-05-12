@@ -6,7 +6,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
   if (!user) {
-    return NextResponse.rewrite(new URL('/', req.url))
+    return NextResponse.rewrite(new URL("/", req.url));
   }
   const verify = axios
     .get("/user/me", {
@@ -17,6 +17,6 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     .then(() => true)
     .catch(() => false);
   if (!verify) {
-    return NextResponse.rewrite(new URL('/', req.url))
+    return NextResponse.rewrite(new URL("/", req.url));
   } else return NextResponse.next();
 }

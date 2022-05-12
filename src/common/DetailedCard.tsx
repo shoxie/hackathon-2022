@@ -24,7 +24,7 @@ const DetailedCard = (props: Props) => {
   const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [date, setDate] = useState<Date>(new Date());
-  const noti = useNotification()
+  const noti = useNotification();
 
   useEffect(() => {
     loadPlans();
@@ -52,12 +52,12 @@ const DetailedCard = (props: Props) => {
   };
 
   const handleOpenModal = (state: boolean) => {
-    const user = userService.getUser()
+    const user = userService.getUser();
     if (!user) {
       return noti.show({
         type: "error",
         message: "Bạn cần đăng nhập để thực hiện chức năng này",
-      })
+      });
     }
     setIsOpen(state);
   };

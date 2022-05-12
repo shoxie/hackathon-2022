@@ -121,6 +121,6 @@ export type UserInfo = {
 };
 
 export type Notification = {
-  type: "success" | "error" | "loading"
-  message: string
-}
+  type: "success" | "error" | "loading";
+  message: string;
+};

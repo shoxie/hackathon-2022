@@ -5,4 +5,4 @@ export const mapViewMarkerAtom = atom<MarkerType[] | []>([]);
 
 export const userAtom = atom<UserInfo | null>(null);
 
-export const notificationAtom = atom<Notification[]>([])
+export const notificationAtom = atom<Notification[]>([]);

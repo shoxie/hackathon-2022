@@ -17,8 +17,11 @@ export const getFavouriteLocations = () => {
   return axiosClient.get<LocationPayload>("/user/favorite");
 };
 
-export const markVisitedLocation = (planId: number | string, locationid: number | string) => {
+export const markVisitedLocation = (
+  planId: number | string,
+  locationid: number | string
+) => {
   return axiosClient.put<any>(`/plan/${planId}/location/${locationid}`, {
     isVisited: true,
   });
-}
+};

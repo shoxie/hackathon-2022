@@ -1,33 +1,27 @@
-import * as ToastPrimitive from "@radix-ui/react-toast"
-import {
-  useState,
-  useEffect,
-} from "react"
-import {
-  AnimatePresence,
-  motion,
-} from "framer-motion"
-import { AiFillCheckCircle } from "react-icons/ai"
-import { BiLoaderAlt } from "react-icons/bi"
-import { MdCancel } from "react-icons/md"
-import { Notification } from "@/store/type"
+import * as ToastPrimitive from "@radix-ui/react-toast";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { BiLoaderAlt } from "react-icons/bi";
+import { MdCancel } from "react-icons/md";
+import { Notification } from "@/store/type";
 
 type Props = {
-  item: Notification
-}
+  item: Notification;
+};
 
 const Toast = ({ item }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout: NodeJS.Timeout;
     if (item.type !== "loading") {
       timeout = setTimeout(() => {
-        setIsOpen(false)
-      }, 3000)
+        setIsOpen(false);
+      }, 3000);
     }
-    return () => clearTimeout(timeout)
-  }, [item.type])
+    return () => clearTimeout(timeout);
+  }, [item.type]);
 
   return (
     <>
@@ -69,7 +63,7 @@ const Toast = ({ item }: Props) => {
         <ToastPrimitive.Viewport className="fixed z-[200] right-10 top-20 w-96" />
       </ToastPrimitive.Provider>
     </>
-  )
-}
+  );
+};
 
-export default Toast
+export default Toast;
