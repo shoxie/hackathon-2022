@@ -1,7 +1,13 @@
 import withTransition from "@/common/PageTransition";
 import { getUserInfo, login, register } from "@/services/api";
+import { useState } from 'react';
+import { AuthPayload, User } from "@/store/type";
 
 const Auth = () => {
+  const [user, setUser] = useState<User>({
+    email: "",
+    password: "",
+  });
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: string

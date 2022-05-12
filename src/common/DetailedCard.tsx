@@ -11,6 +11,7 @@ import classnames from "classnames";
 import Calendar from "react-calendar";
 import userService from "@/services/user";
 import { useNotification } from "@/hooks/useNotification";
+import { useRouter } from 'next/router'
 
 interface Props extends Location {
   isCame: boolean;
@@ -25,6 +26,7 @@ const DetailedCard = (props: Props) => {
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [date, setDate] = useState<Date>(new Date());
   const noti = useNotification();
+  const router = useRouter()
 
   useEffect(() => {
     loadPlans();
@@ -101,6 +103,7 @@ const DetailedCard = (props: Props) => {
             backgroundImage: `url(${props.thumbnail})`,
           }}
           className="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg cursor-pointer"
+          onClick={() => router.push(`/places/${props.id}`)}
         />
         <div className="flex flex-col pt-2 space-y-2">
           <div>
