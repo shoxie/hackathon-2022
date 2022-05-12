@@ -25,3 +25,7 @@ export const markVisitedLocation = (
     isVisited: true,
   });
 };
+
+export const getReviews = (id: number | string) => {
+  return axiosClient.get<any>(`/location/${id}/reviews`);
+}
