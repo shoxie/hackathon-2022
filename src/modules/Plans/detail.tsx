@@ -337,7 +337,7 @@ const DetailedUserPlan = () => {
         />
         <div className="absolute max-w-xl bg-white h-3/4 top-5 left-5 rounded-xl">
           <div className="flex flex-col w-full h-full col-span-5 p-5 space-y-5 overflow-y-scroll">
-            {plan?.places.map((place, idx) => (
+            {planLocations?.map((place, idx) => (
               <div
                 key={idx}
                 className="flex flex-row items-center space-x-3 cursor-pointer"
@@ -359,11 +359,11 @@ const DetailedUserPlan = () => {
                         <div className="flex flex-row items-center space-x-1">
                           <div className="flex flex-row items-center text-lg text-yellow-400">
                             <AiTwotoneStar />
-                            <span>{place.rating}</span>
+                            <span>{place?.review}</span>
                           </div>
                           <div>
                             <span className="font-medium text-gray-300">
-                              ({place.ratingCount} đánh giá)
+                              ({place?.review} đánh giá)
                             </span>
                           </div>
                         </div>
@@ -371,16 +371,16 @@ const DetailedUserPlan = () => {
                     </div>
                   </div>
                   <div className="text-2xl font-semibold text-center text-secondary">
-                    <span className="block">
+                    {/* <span className="block">
                       {place.startTime} {place.startDate}
-                    </span>
+                    </span> */}
                   </div>
                   <div className="flex flex-row items-center justify-between pt-3">
                     <div className="flex flex-row items-center space-x-3">
                       <div>
                         <span className="text-lg text-gray-400">
                           <span className="text-2xl text-secondary">
-                            {place.toCome}
+                            {place.intendedPeople}
                           </span>{" "}
                           dự định đến
                         </span>
@@ -388,7 +388,7 @@ const DetailedUserPlan = () => {
                       <div>
                         <span className="text-lg text-gray-400">
                           <span className="text-2xl text-secondary">
-                            {place.willCome}
+                            {place.highIntendedPeople}
                           </span>{" "}
                           sẽ đến
                         </span>

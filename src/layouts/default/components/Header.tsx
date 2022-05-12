@@ -308,7 +308,7 @@ function Header() {
             ) : null}
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Root>
-        <div className={classNames(isLoggedIn ? "lg:block hidden" : "hidden")}>
+        <div className={classNames(isLoggedIn ? "md:block hidden" : "hidden")}>
           <Link href="/profile" passHref>
             <a className="hover:underline">{userInfo?.email}</a>
           </Link>
