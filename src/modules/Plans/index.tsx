@@ -23,7 +23,7 @@ const UserPlans = () => {
       <div className="py-10">
         <h1 className="text-3xl font-semibold">Danh sách các kế hoạch</h1>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-5">
         {plans?.map((plan) => (
           <div key={plan.id} className="text-center">
             <div
