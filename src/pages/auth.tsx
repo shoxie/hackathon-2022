@@ -2,8 +2,10 @@ import withTransition from "@/common/PageTransition";
 import { getUserInfo, login, register } from "@/services/api";
 import { useState } from 'react';
 import { AuthPayload, User } from "@/store/type";
+import { useNotification } from "@/hooks/useNotification";
 
 const Auth = () => {
+  const noti = useNotification();
   const [user, setUser] = useState<User>({
     email: "",
     password: "",
