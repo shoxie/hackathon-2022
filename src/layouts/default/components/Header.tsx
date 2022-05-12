@@ -18,22 +18,27 @@ const menuItems = [
   {
     name: "Trang chủ",
     path: "/",
+    isMobile: false
   },
   {
     name: "Địa điểm",
     path: "/places",
+    isMobile: false
   },
   {
     name: "Kế hoạch",
     path: "/plans",
+    isMobile: false
   },
   {
     name: "Đăng nhập",
     path: "/auth",
+    isMobile: true
   },
   {
     name: "Trang cá nhân",
     path: "/profile",
+    isMobile: true
   },
 ];
 
@@ -41,9 +46,10 @@ type LinkProps = {
   selected: boolean;
   text: string;
   onClick: () => void;
+  isMobile: boolean
 };
 
-const CustomLink: FC<LinkProps> = ({ selected, onClick, text }) => {
+const CustomLink: FC<LinkProps> = ({ selected, onClick, text, isMobile }) => {
   return (
     <motion.div
       className={classNames(
@@ -58,7 +64,8 @@ const CustomLink: FC<LinkProps> = ({ selected, onClick, text }) => {
         <motion.div
           className={classNames(
             "absolute top-[103%] align-middle h-0.5 rounded-2xl w-3/4",
-            selected ? "bg-secondary" : ""
+            selected ? "bg-secondary" : "",
+            isMobile ? "hidden" : ""
           )}
           layoutId="underline"
         />
@@ -86,6 +93,7 @@ const UndelinedLinks = () => {
             key={idx}
             selected={current === idx}
             onClick={() => onClick(idx)}
+            isMobile={item.isMobile}
           />
         ))}
       </AnimateSharedLayout>
