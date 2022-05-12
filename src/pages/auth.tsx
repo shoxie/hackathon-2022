@@ -3,6 +3,7 @@ import { getUserInfo, login, register } from "@/services/api";
 import { useState } from 'react';
 import { AuthPayload, User } from "@/store/type";
 import { useNotification } from "@/hooks/useNotification";
+import userService from "@/services/user";
 
 const Auth = () => {
   const noti = useNotification();
@@ -25,8 +26,6 @@ const Auth = () => {
     login(user)
       .then((res) => {
         userService.setUser(res.data as any);
-        setIsLoggedIn(true);
-        handleModalOpen(false);
         noti.show({
           type: "success",
           message: "Đăng nhập thành công",
@@ -45,7 +44,6 @@ const Auth = () => {
     register(user)
       .then((res) => {
         userService.setUser(res.data as any);
-        handleModalOpen(false);
       })
       .catch((err) => {
         console.log(err);
