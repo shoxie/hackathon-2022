@@ -9,20 +9,17 @@ import { Location, PlaceProps } from "@/store/type";
 
 type Props = {
   locations?: Location[] | null;
+  page: any;
+  onChange: any;
+  total_page: number;
 };
 
-const Container = ({ locations }: Props) => {
-  const [page, onChange] = useState<number>(1);
-  const [data, setData] = useState<PlaceProps[]>([]);
+const Container = ({ locations, page, onChange, total_page }: Props) => {
   const pagination = usePagination({
-    total: places.length / 9,
+    total: total_page,
     page,
     onChange,
   });
-
-  useEffect(() => {
-    setData(places.slice((page - 1) * 9, page * 9));
-  }, [page]);
 
   return (
     <>
@@ -37,13 +34,13 @@ const Container = ({ locations }: Props) => {
             if (item !== "dots") {
               return (
                 <button
-                  key={index}
+                  key={item}
                   onClick={() => {
                     pagination.setPage(item as number);
                   }}
                   className={classNames(
                     "py-1 px-3 rounded-lg",
-                    index === page - 1 ? "bg-primary text-white" : "bg-white"
+                    item === page ? "bg-primary text-white" : "bg-white"
                   )}
                 >
                   {item}

@@ -140,7 +140,7 @@ const PlaceDetail = () => {
     getLocationGraphData(router.query.id as string, filter).then((res) => {
       parseGraphObject(res.data);
     });
-  }, [currentFilterIndex]);
+  }, [currentFilterIndex, router.query.id]);
 
   const handleAddToPlan = () => {
     if (!detail?.id) return;

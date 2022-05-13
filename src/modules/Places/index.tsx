@@ -12,6 +12,7 @@ import { Location, LocationPayload, MarkerType } from "@/store/type";
 
 const Places = () => {
   const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
+  const [total_page, settotal_page] = useState(0);
   const [isQuerying, setIsQuerying] = useState<boolean>(false);
   const [currentPos, setCurrentPos] = useState<{
     lat: number;
@@ -20,55 +21,40 @@ const Places = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [locations, setLocations] = useState<Location[] | null>(null);
   const [markers, setMarkers] = useState<MarkerType[]>([]);
+  const [page, onChange] = useState<number>(1);
 
   const router = useRouter();
   const { search } = router.query;
 
   useEffect(() => {
-    if (search !== undefined && search !== "") {
-      setIsQuerying(true);
-      getLocations(search as string)
-        .then((res) => {
-          setLocations(res.data.locations);
-          const markerData = res.data.locations.map((place) => ({
-            lat: place.latitude,
-            lng: place.longitude,
-            text: place.name,
-            locationId: place.id,
-          }));
-          setMarkers(markerData);
-        })
-        .catch((err) => {
-          console.log(err);
+    setIsQuerying(true);
+    getLocations(search as string, page)
+      .then((res) => {
+        setLocations(res.data.locations);
+        const markerData = res.data.locations.map((place) => ({
+          lat: place.latitude,
+          lng: place.longitude,
+          text: place.name,
+          locationId: place.id,
+        }));
+        settotal_page(res.data.total_page);
+        setMarkers(markerData);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsQuerying(false));
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setCurrentPos({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         });
+      });
     } else {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          setCurrentPos({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        });
-      } else {
-        console.log("Not Available");
-      }
-      getLocations()
-        .then((res) => {
-          setLocations(res.data.locations);
-          const markerData = res.data.locations.map((place) => ({
-            lat: place.latitude,
-            lng: place.longitude,
-            text: place.name,
-            locationId: place.id,
-          }));
-          setMarkers(markerData);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      console.log("Not Available");
     }
-  }, [search]);
-
+  }, [search, page]);
   return (
     <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
       <div className="flex justify-center">
@@ -102,7 +88,12 @@ const Places = () => {
           <Filter />
         </div>
         <div className="lg:col-span-9 md:col-span-8">
-          <Container locations={locations} />
+          <Container
+            locations={locations}
+            page={page}
+            onChange={onChange}
+            total_page={total_page}
+          />
         </div>
       </div>
     </div>

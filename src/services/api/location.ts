@@ -1,8 +1,10 @@
 import axiosClient from "@/app/axiosClient";
 import { LocationPayload } from "@/store/type";
 
-export const getLocations = (query?: string) => {
-  return axiosClient.get<LocationPayload>(`/location?search=${query ?? ""}`);
+export const getLocations = (query?: string, page?: any) => {
+  return axiosClient.get<LocationPayload>(
+    `/location?search=${encodeURI(query ?? "")}&page=${page || 1}&limit=9`
+  );
 };
 
 export const getLocationById = (id: string | number) => {
@@ -28,4 +30,4 @@ export const markVisitedLocation = (
 
 export const getReviews = (id: number | string) => {
   return axiosClient.get<any>(`/location/${id}/reviews`);
-}
+};

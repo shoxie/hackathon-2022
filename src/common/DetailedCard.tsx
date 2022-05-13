@@ -11,7 +11,7 @@ import classnames from "classnames";
 import Calendar from "react-calendar";
 import userService from "@/services/user";
 import { useNotification } from "@/hooks/useNotification";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 interface Props extends Location {
   isCame: boolean;
@@ -26,10 +26,11 @@ const DetailedCard = (props: Props) => {
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [date, setDate] = useState<Date>(new Date());
   const noti = useNotification();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    loadPlans();
+    const user = userService.getUser();
+    if (user) loadPlans();
   }, []);
 
   const loadPlans = () => {
@@ -42,15 +43,13 @@ const DetailedCard = (props: Props) => {
   };
 
   const getCountText = (count: number) => {
-    if (count > 100) {
+    if (count < 100) {
       return "Ít người";
     }
-    if (count > 500) {
+    if (count < 500) {
       return "Bình thường";
     }
-    if (count > 1000) {
-      return `Quá tải`;
-    }
+    return `Quá tải`;
   };
 
   const handleOpenModal = (state: boolean) => {
@@ -130,9 +129,9 @@ const DetailedCard = (props: Props) => {
             <div>
               <span className="text-gray-400">
                 <span className="font-medium text-primary">
-                  {props.highIntendedPeople}
+                  {props.intendedPeople}
                 </span>{" "}
-                người sẽ đến
+                người dự định đến
               </span>
             </div>
             <div>
