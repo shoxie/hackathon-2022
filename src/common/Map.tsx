@@ -14,13 +14,24 @@ const Marker = ({ text, locationId }: MarkerType) => {
     getLocationById(locationId).then((res) => setLocation(res.data));
   }, [locationId]);
 
+
+  const getCountText = (count: number) => {
+    if (count < 100) {
+      return "Ít người";
+    }
+    if (count < 500) {
+      return "Bình thường";
+    }
+    return `Quá tải`;
+  };
+
   return (
     <div className="relative">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute w-full p-2 text-white -translate-x-1/2 -top-14 -left-1/2 bg-secondary rounded-xl min-w-max"
+        className="absolute w-full p-2 text-white -translate-x-1/2 -top-10 -left-1/2 bg-secondary rounded-xl min-w-max"
       >
-        <span className="font-bold text-md">{text}</span>
+        <span className="font-bold text-md">{getCountText(location?.highIntendedPeople)}</span>
       </div>
       {isOpen && location && (
         <div className="absolute w-80 p-2 text-white -translate-x-1/2 bg-white max-h-max bottom-[400%] -left-1/2 rounded-xl">
