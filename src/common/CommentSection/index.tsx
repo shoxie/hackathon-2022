@@ -1,7 +1,8 @@
+import { Review } from "@/store/type";
 import { AiTwotoneStar } from "react-icons/ai";
 import StarRating from "./StarRating";
 
-const data = {
+const mockData = {
   rating: 4.8,
   ratingCount: 1123,
   comments: [
@@ -31,8 +32,11 @@ const data = {
 type Props = {
   isSection: boolean;
   isProfilePage: boolean;
+  data?: Review[] | null;
+  locationName: string
 };
-const CommentSection = ({ isSection, isProfilePage }: Props) => {
+
+const CommentSection = ({ isSection, isProfilePage, data, locationName }: Props) => {
   return (
     <div>
       <div className="py-5">
@@ -44,26 +48,26 @@ const CommentSection = ({ isSection, isProfilePage }: Props) => {
         <div className="flex flex-row items-center space-x-1">
           <div className="flex flex-row items-center text-2xl text-yellow-400">
             <AiTwotoneStar />
-            <span>{data.rating}</span>
+            <span>{mockData.rating}</span>
           </div>
           <div>
             <span className="font-medium text-gray-300">
-              ({data.ratingCount} đánh giá)
+              ({mockData.ratingCount} đánh giá)
             </span>
           </div>
         </div>
       </div>
       <div className="flex flex-col pt-5 space-y-5">
-        {data.comments.map((comment) => (
+        {data?.map((comment) => (
           <div key={comment.id} className="grid grid-cols-12 space-x-5">
-            <div className="flex flex-col items-center col-span-1 space-y-5">
-              <div
+            <div className="flex flex-col items-center justify-center col-span-1 space-y-5">
+              {/* <div
                 className="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full"
                 style={{ backgroundImage: `url(${comment.avatar})` }}
-              />
+              /> */}
               <div>
                 <span className="text-xl font-semibold">
-                  {comment.username}
+                  {comment.user.name}
                 </span>
               </div>
             </div>
@@ -72,13 +76,13 @@ const CommentSection = ({ isSection, isProfilePage }: Props) => {
                 <StarRating rating={comment.rating} />
                 <div>
                   <span className="text-lg font-medium text-gray-400">
-                    {comment.timestamp}
+                    {new Date(comment.createdAt).toLocaleDateString()}
                   </span>
                 </div>
               </div>
               <div>
                 <span className="text-sm font-medium text-gray-400">
-                  Đánh giá cho: {comment.place}
+                  Đánh giá cho: {locationName}
                 </span>
               </div>
               <div className="py-5">

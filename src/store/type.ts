@@ -124,3 +124,13 @@ export type Notification = {
   type: "success" | "error" | "loading";
   message: string;
 };
+
+export type Review = {
+  id: number
+  content: string
+  locationId: number
+  rating: number
+  user: UserInfo
+  userId: number
+  createdAt: string
+}

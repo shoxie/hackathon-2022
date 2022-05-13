@@ -14,12 +14,15 @@ import classNames from "classnames";
 import { discounts, lineChartData, lineChartData1Week } from "@/lib/contants";
 import Calendar from "react-calendar";
 import { useEffect, useState } from "react";
-import { Location } from "@/store/type";
+import { Location, Plan, Review } from "@/store/type";
 import { useRouter } from "next/router";
 import { getLocationById, getLocationGraphData } from "@/services/api/location";
 import moment from "moment";
 import "moment/locale/vi";
 moment.locale("vi");
+import { addLocationToPlan, getAllPlans, getReviews } from "@/services/api";
+import { useNotification } from "@/hooks/useNotification";
+
 const data = {
   name: "Vườn bách thú Đà Lạt",
   rating: 4.8,
@@ -46,13 +49,19 @@ const graphFilterOptions = [
 
 const PlaceDetail = () => {
   const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(0);
-  const [searchText, setSearchText] = useState<string>("");
+  const [numberOfPeople, setNumberOfPeople] = useState<string>("");
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [detail, setDetail] = useState<Location | null>(null);
   const [graphData, setGraphData] = useState<any[]>([]);
+  const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
+  const [isNewPlanOpen, setIsNewPlanOpen] = useState<boolean>(false);
+  const [plans, setPlans] = useState<Plan[] | null>(null);
+  const [reviews, setReviews] = useState<Review[] | null>(null);
 
   const router = useRouter();
+
+  const noti = useNotification();
 
   const getChartData = () => {
     switch (currentFilterIndex) {
@@ -79,7 +88,7 @@ const PlaceDetail = () => {
   };
 
   const onSearchTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+    setNumberOfPeople(e.target.value);
   };
 
   const handleCalendarOpen = () => {
@@ -106,6 +115,9 @@ const PlaceDetail = () => {
     getLocationGraphData(id, "hour").then((res) => {
       parseGraphObject(res.data);
     });
+    getReviews(id).then((res) => {
+      setReviews(res.data.reviews);
+    });
   }, [router.query.id]);
 
   useEffect(() => {
@@ -129,6 +141,45 @@ const PlaceDetail = () => {
       parseGraphObject(res.data);
     });
   }, [currentFilterIndex]);
+
+  const handleAddToPlan = () => {
+    if (!detail?.id) return;
+    if (selectedDate && selectedPlanId) {
+      addLocationToPlan(
+        selectedPlanId,
+        detail?.id,
+        selectedDate,
+        parseInt(numberOfPeople)
+      ).then((res) => {
+        noti.show({
+          type: "success",
+          message: "Thêm thành công",
+        });
+      });
+    }
+  };
+  const onSelectPlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    if (value === "new") {
+      setIsNewPlanOpen(true);
+    } else {
+      const id = parseInt(value);
+      setSelectedPlanId(id);
+    }
+  };
+
+  useEffect(() => {
+    loadPlans();
+  }, []);
+
+  const loadPlans = () => {
+    getAllPlans().then((res) => {
+      setPlans(res.data.plans);
+      if (res.data.plans.length > 0) {
+        setSelectedPlanId(res.data.plans[0].id);
+      }
+    });
+  };
 
   return (
     <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
@@ -273,10 +324,27 @@ const PlaceDetail = () => {
           </div>
         </div>
       </div>
+      <div className="flex items-center justify-center w-full pt-5 space-x-5">
+        <span>Chọn kế hoạch của bạn</span>
+        <select
+          className="px-5 py-1 bg-transparent border rounded-xl focus:outline-none border-secondary"
+          onChange={onSelectPlanChange}
+        >
+          {plans?.length === 0 && <option value=""></option>}
+          {plans?.map((plan) => (
+            <option key={plan.id} value={plan.id}>
+              {plan.name}
+            </option>
+          ))}
+          <option value="new">Tạo kế hoạch mới</option>
+        </select>
+      </div>
       <div className="flex items-center justify-center pt-10">
         <button className="flex items-center space-x-3 general-button">
           <AiOutlinePlus className="text-2xl" />
-          <span className="text-2xl">Thêm vào kế hoạch</span>
+          <button type="button" className="text-2xl" onClick={handleAddToPlan}>
+            Thêm vào kế hoạch
+          </button>
         </button>
       </div>
       <div className="py-10">
@@ -290,7 +358,12 @@ const PlaceDetail = () => {
         </div>
       </div>
       <div>
-        <CommentSection isSection isProfilePage={false} />
+        <CommentSection
+          isSection
+          isProfilePage={false}
+          data={reviews}
+          locationName={detail?.name ?? ""}
+        />
       </div>
     </div>
   );
