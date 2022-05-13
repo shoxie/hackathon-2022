@@ -20,7 +20,12 @@ import { getLocationById, getLocationGraphData } from "@/services/api/location";
 import moment from "moment";
 import "moment/locale/vi";
 moment.locale("vi");
-import { addLocationToPlan, getAllPlans, getReviews } from "@/services/api";
+import {
+  addLocationToPlan,
+  getAllPlans,
+  getReviews,
+  createNewPlan,
+} from "@/services/api";
 import { useNotification } from "@/hooks/useNotification";
 
 const data = {
@@ -58,6 +63,7 @@ const PlaceDetail = () => {
   const [isNewPlanOpen, setIsNewPlanOpen] = useState<boolean>(false);
   const [plans, setPlans] = useState<Plan[] | null>(null);
   const [reviews, setReviews] = useState<Review[] | null>(null);
+  const [newPlanValue, setNewPlanValue] = useState<string>("");
 
   const router = useRouter();
 
@@ -179,6 +185,15 @@ const PlaceDetail = () => {
         setSelectedPlanId(res.data.plans[0].id);
       }
     });
+  };
+
+  const handleCreateNewPlan = () => {
+    if (newPlanValue) {
+      createNewPlan({ name: newPlanValue }).then((res) => {
+        setIsNewPlanOpen(false);
+        loadPlans();
+      });
+    }
   };
 
   return (
@@ -338,6 +353,24 @@ const PlaceDetail = () => {
           ))}
           <option value="new">Tạo kế hoạch mới</option>
         </select>
+      </div>
+      <div className={classNames(isNewPlanOpen ? "block" : "hidden")}>
+        <div className="flex items-center justify-center w-full space-x-5">
+          <label>Tên kế hoạch mới</label>
+          <input
+            type="text"
+            className="pl-2 border focus:outline-none border-secondary rounded-xl"
+            onChange={(e) => setNewPlanValue(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center justify-center w-full pt-5 space-x-5">
+          <button
+            onClick={handleCreateNewPlan}
+            className="px-5 py-1 transition-all duration-300 border rounded-md border-secondary hover:bg-secondary hover:text-white text-secondary"
+          >
+            Tạo mới
+          </button>
+        </div>
       </div>
       <div className="flex items-center justify-center pt-10">
         <button className="flex items-center space-x-3 general-button">

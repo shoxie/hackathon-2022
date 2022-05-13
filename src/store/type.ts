@@ -126,11 +126,11 @@ export type Notification = {
 };
 
 export type Review = {
-  id: number
-  content: string
-  locationId: number
-  rating: number
-  user: UserInfo
-  userId: number
-  createdAt: string
-}
+  id: number;
+  content: string;
+  locationId: number;
+  rating: number;
+  user: UserInfo;
+  userId: number;
+  createdAt: string;
+};

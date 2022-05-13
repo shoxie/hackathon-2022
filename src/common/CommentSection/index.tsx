@@ -33,10 +33,15 @@ type Props = {
   isSection: boolean;
   isProfilePage: boolean;
   data?: Review[] | null;
-  locationName: string
+  locationName: string;
 };
 
-const CommentSection = ({ isSection, isProfilePage, data, locationName }: Props) => {
+const CommentSection = ({
+  isSection,
+  isProfilePage,
+  data,
+  locationName,
+}: Props) => {
   return (
     <div>
       <div className="py-5">
