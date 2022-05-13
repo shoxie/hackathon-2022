@@ -215,6 +215,7 @@ const DetailedCard = (props: Props) => {
                         <select
                           className="px-5 py-1 bg-transparent border rounded-xl focus:outline-none border-secondary"
                           onChange={onSelectPlanChange}
+                          defaultValue="0"
                         >
                           {plans?.length === 0 && <option value=""></option>}
                           {plans?.map((plan) => (
@@ -223,11 +224,12 @@ const DetailedCard = (props: Props) => {
                             </option>
                           ))}
                           <option value="new">Tạo kế hoạch mới</option>
+                          <option value="0"></option>
                         </select>
                       </div>
                       <div
                         className={classnames(
-                          isNewPlanOpen ? "block" : "hidden"
+                          isNewPlanOpen ? "block pt-5" : "hidden"
                         )}
                       >
                         <div className="flex items-center justify-center w-full space-x-5">
