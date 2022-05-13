@@ -229,7 +229,7 @@ const DetailedCard = (props: Props) => {
                       </div>
                       <div
                         className={classnames(
-                          isNewPlanOpen ? "block pt-5" : "hidden"
+                          isNewPlanOpen ? "block" : "hidden"
                         )}
                       >
                         <div className="flex items-center justify-center w-full space-x-5">

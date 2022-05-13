@@ -354,7 +354,7 @@ const PlaceDetail = () => {
           <option value="new">Tạo kế hoạch mới</option>
         </select>
       </div>
-      <div className={classNames(isNewPlanOpen ? "block" : "hidden")}>
+      <div className={classNames(isNewPlanOpen ? "block pt-5" : "hidden")}>
         <div className="flex items-center justify-center w-full space-x-5">
           <label>Tên kế hoạch mới</label>
           <input
