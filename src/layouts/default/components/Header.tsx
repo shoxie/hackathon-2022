@@ -18,27 +18,27 @@ const menuItems = [
   {
     name: "Trang chủ",
     path: "/",
-    isMobile: false
+    isMobile: false,
   },
   {
     name: "Địa điểm",
     path: "/places",
-    isMobile: false
+    isMobile: false,
   },
   {
     name: "Kế hoạch",
     path: "/plans",
-    isMobile: false
+    isMobile: false,
   },
   {
     name: "Đăng nhập",
     path: "/auth",
-    isMobile: true
+    isMobile: true,
   },
   {
     name: "Trang cá nhân",
     path: "/profile",
-    isMobile: true
+    isMobile: true,
   },
 ];
 
@@ -46,7 +46,7 @@ type LinkProps = {
   selected: boolean;
   text: string;
   onClick: () => void;
-  isMobile: boolean
+  isMobile: boolean;
 };
 
 const CustomLink: FC<LinkProps> = ({ selected, onClick, text, isMobile }) => {
@@ -65,7 +65,7 @@ const CustomLink: FC<LinkProps> = ({ selected, onClick, text, isMobile }) => {
         <motion.div
           className={classNames(
             "absolute top-[103%] align-middle h-0.5 rounded-2xl w-3/4",
-            selected ? "bg-secondary" : "",
+            selected ? "bg-secondary" : ""
           )}
           layoutId="underline"
         />
@@ -308,10 +308,20 @@ function Header() {
             ) : null}
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Root>
-        <div className={classNames(isLoggedIn ? "md:block hidden" : "hidden")}>
+        <div className={classNames(isLoggedIn ? "md:block  flex" : "hidden")}>
           <Link href="/profile" passHref>
             <a className="hover:underline">{userInfo?.email}</a>
           </Link>
+          <a
+            className="ml-5 hover:underline"
+            href="#"
+            onClick={() => {
+              userService.removeUser();
+              router.reload();
+            }}
+          >
+            Đăng xuất
+          </a>
         </div>
         <div className="lg:hidden relative z-[200]">
           <button
