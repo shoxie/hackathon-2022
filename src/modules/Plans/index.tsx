@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 
 import withTransition from "@/common/PageTransition";
 import { Plan } from "@/store/type";
+import userService from "@/services/user";
 
 const UserPlans = () => {
   const router = useRouter();
   const [plans, setPlans] = useState<Plan[] | null>(null);
-
   useEffect(() => {
     getAllPlans().then((res) => {
       console.log(res);
@@ -23,7 +23,10 @@ const UserPlans = () => {
       <div className="py-10">
         <h1 className="text-3xl font-semibold">Danh sách các kế hoạch</h1>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 gap-5 lg:grid-cols-4 md:grid-cols-3">
+        {userService.getUser() == null && (
+          <div>Vui lòng đăng nhập để tiếp túc</div>
+        )}
         {plans?.map((plan) => (
           <div key={plan.id} className="text-center">
             <div
