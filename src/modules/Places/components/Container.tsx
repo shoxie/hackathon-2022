@@ -34,7 +34,7 @@ const Container = ({ locations, page, onChange, total_page }: Props) => {
             if (item !== "dots") {
               return (
                 <button
-                  key={item}
+                  key={index}
                   onClick={() => {
                     pagination.setPage(item as number);
                   }}

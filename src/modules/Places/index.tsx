@@ -55,6 +55,10 @@ const Places = () => {
       console.log("Not Available");
     }
   }, [search, page]);
+  useEffect(() => {
+    setSearchText("");
+  }, [page]);
+
   return (
     <div className="max-w-screen-xl px-5 mx-auto lg:px-0">
       <div className="flex justify-center">
