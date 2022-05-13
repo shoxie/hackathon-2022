@@ -17,7 +17,9 @@ import { useEffect, useState } from "react";
 import { Location } from "@/store/type";
 import { useRouter } from "next/router";
 import { getLocationById, getLocationGraphData } from "@/services/api/location";
-
+import moment from "moment";
+import "moment/locale/vi";
+moment.locale("vi");
 const data = {
   name: "Vườn bách thú Đà Lạt",
   rating: 4.8,
@@ -87,7 +89,7 @@ const PlaceDetail = () => {
   const parseGraphObject = (data: any) => {
     const temp = data.x.map((item: string, index: number) => {
       return {
-        name: new Date(item).toLocaleDateString("vi-VN"),
+        name: moment(item).calendar(),
         pv: data.intended[index],
         uv: data.reality[index],
       };
