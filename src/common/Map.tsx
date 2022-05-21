@@ -15,7 +15,8 @@ const Marker = ({ text, locationId }: MarkerType) => {
   }, [locationId]);
 
 
-  const getCountText = (count: number) => {
+  const getCountText = (count?: number) => {
+    if (!count) return ""
     if (count < 100) {
       return "Ít người";
     }
