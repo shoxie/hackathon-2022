@@ -5,7 +5,8 @@ Backend: https://github.com/Th1nhNg0/travel-flow-backend
 
 APP: https://github.com/Th1nhNg0/travel_flow_hackathon
 
-SLIDE: https://github.com/Th1nhNg0/travel_flow_hackathon/blob/main/TravelFlow%20.pdf
+Slide: https://github.com/Th1nhNg0/travel_flow_hackathon/blob/main/TravelFlow%20.pdf
+
 ---
 ### Configuration guide
 
